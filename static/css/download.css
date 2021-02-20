@@ -1,0 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,100italic,300italic,400italic);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+
+
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: block;
+  min-height: 150px;
+  margin: 1rem auto;
+  position: relative;
+  width: 900px;
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+
+.card h2, .card h1 {
+  display: block;
+  color: #6580B2;
+  margin: 0;
+  padding: 0;
+  font-size: 25px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.card span.filename {
+  display: block;
+  text-align: left;
+  color: #A3A3A3;
+  margin: 10px 0;
+}
+
+.card h2.changelog_title {
+  margin: 50px 0 0 0;
+  font-size: 20px;
+  padding: 0 0 10px 0;
+  color: #555;
+  border-bottom: 1px solid #CCC;
+}
+
+.card .changelog {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  text-align: left;
+  color: #555;
+}
+
+.card .changelog ul {
+  padding: 10px 0 0 18px;
+  margin: 0;
+}
+
+.card a.btn {
+  height: 45px;
+  padding: 0 25px;
+  font-size: 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-radius: 1px;
+ background-image: linear-gradient(90deg, #00c5ff 20%, #006bff 70%, #0900ff 100%);
+  border: none;
+  -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.1);
+  -moz-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.1);
+  box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.1);
+  margin: 25px 0 15px 0;
+  display: inline-block;
+  line-height: 45px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+
