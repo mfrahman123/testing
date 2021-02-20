@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+Advanced Search | QMUL Transcription Factor Database
+</title>
+{{ fontawesome_html() }}
+<!-- Tab Icon -->
+<link rel="shortcut icon" href="https://img.bhs4.com/9D/E/9DEB6E06754E0FB036834E448B2F83111B6065FB_large.jpg" />
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+	  
+    <!-- Bootstrap CSS-->
+    <!--link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Font Awesome CSS-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/fontawesome/css/fontawesome.min.css') }}">
+
+    <!-- Fontastic Custom icon font-->
+    <!--link rel="stylesheet" href="static/css/fontastic.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/fontastic.css') }}">
+
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+    <!-- jQuery Circle-->
+    <!--link rel="stylesheet" href="static/css/grasp_mobile_progress_circle-1.0.0.min.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
+
+    <!-- Custom Scrollbar-->
+    <!--link rel="stylesheet" href="static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
+
+    <!-- theme stylesheet-->
+    <!--link rel="stylesheet" href="static/css/style.blue.css" id="theme-stylesheet"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.blue.css') }}">
+
+      <!-- Search bar CSS -->
+      <!--<link rel="stylesheet" href="../static/css/simple-search.css" id="search-stylesheet">-->
+	 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/simple-search.css') }}">
+	  
+	  <!--Advanced Search-->
+     <!-- <link rel="stylesheet" href="../static/css/search-page.css">-->
+     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/search-page.css') }}">
+
+		<!--Download Page-->
+     <!-- <link rel="stylesheet" href="../static/css/download.css">-->
+     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/download.css') }}">
+</head>
+    
+    <body>
+        
+      <!-- Side Navbar -->
+ <nav class="side-navbar">
+  <div class="side-navbar-wrapper">
+    <!-- Sidebar Header    -->
+    <div class="sidenav-header d-flex align-items-center justify-content-center">
+      <!-- Small Brand information, appears on minimized sidebar-->
+      <div class="sidenav-header-logo"><a href="index.html" class="brand-imager"> <img src="https://www.flaticon.com/premium-icon/icons/svg/1951/1951419.svg" ></a></div>
+    </div>
+    <!-- Sidebar Navigation Menus-->
+    <div class="main-menu">
+      <h5 class="sidenav-heading">Menu</h5>
+      <ul id="side-main-menu" class="side-menu list-unstyled">
+        <li><a href="{{ url_for('index',) }}"> <i class="fas fa-hospital"></i>Home                             </a></li>
+        <!-- <li> <i class="fas fa-dna"></i>Browse Transcription Factors                             </a></li> -->
+        <li><a href="{{ url_for('drugs', htf_name = htf_name) }}"> <i class="fas fa-pills"></i>Targeting Drugs                           </a></li>
+        <li><a href="{{ url_for('geo') }}"> <i class="fas fa-file-upload"></i>GEO Expression Data Search                            </a></li>
+          <li><a href="{{ url_for('search') }}"> <i class="fas fa-search"></i>Search</a></li>
+        <li><a href="{{ url_for('download') }}"> <i class="fas fa-download"></i>Download Data                             </a></li></ul>
+    </div>
+  </div>
+      </nav>
+ <div class="page" style=" background-image: linear-gradient(90deg, #00c5ff 20%, #006bff 70%, #0900ff 100%);">
+  <!-- navbar-->
+  <header class="header">
+    <nav class="navbar">
+      <div class="container-fluid" style="align-content: space-between">
+        <div class="navbar-holder d-flex flex-row" style="align-content: space-between">
+            <!-- menu button -->
+          <div class="navbar-header">
+              <a id="toggle-btn" href="#" class="menu-btn">
+                  <i class="fas fa-sitemap"></i></a>
+               <a href="index.html" class="navbar-brand">
+           <div class="brand-text d-none d-md-inline-block"><span>TF </span><strong class="text-primary">DB</strong></div></a>
+            </div>
+
+                                <!--Searchbar-->
+            <div class="wrap">
+               <div class="search">
+                   <form method="post">
+                        <input type="text" class="searchTerm" placeholder="Search...">
+                   </form>
+                  <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                 </button>
+               </div>
+            </div>
+                
+        </div>
+        </div>
+        </nav>
+      </header>
+        
+        <!--Advanced search-->
+        <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom:0px">
+  <h1 class="display-4">Advanced Search</h1>
+  <p class="lead">Search by transcription factor, gene or drug information.</p>
+
+<div class="container">
+ <form accept-charset="UTF-8" method="POST" ><input name="utf8" type="hidden" value="✓">
+<div class="row">
+    <div class="col-12 py-2 col-md-4 offset-md-0 col-lg-2 offset-lg-3  px-md-0  ml-auto">
+      <select name="category" id="category" class=" form-control">
+        <option value="novalue" disabled="" selected="">Choose category</option>
+        <option value="tf">Transcription factor</option>
+        <option value="gene">Gene</option>
+        <option value="drug">Drug</option>
+      </select>
+    </div>
+    
+    <div class="col-12 col-md-4 col-lg-3 py-2 px-md-0 mr-auto">
+      <div class="input-group">
+      <input type="text" placeholder="Search terms" name="keywords" class="form-control" style="height:38px">
+
+
+
+      <div class="input-group-append">
+        <input type="submit" name="commit" value="Search" class="btn btn-outline-light" data-disable-with="Save Search">
+
+      </div>
+    </div> </div>
+</div>
+ 
+
+</form>
+            <div class="row" style="padding-top: 20px; margin-left: 30px">
+         <p>If you would like to browse the categories, enter a blank search for that category.</p>
+        </div>
+    
+            </div>
+        
+        </div>
+        
+        <!--Footer-->
+        <footer class="main-footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <p>Team Amanda &copy; 2021- </p>
+            </div>
+            <div class="col-sm-6 text-right">
+              <p style="font-size: 11px">Based on a design by <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">Bootstrapious</a></p>
+              <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions and it helps me to run Bootstrapious. Thank you for understanding :)-->
+            </div>
+          </div>
+        </div>
+      </footer>
+        
+ </div>
+ 				 <!-- JavaScript files-->
+        <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"> </script>
+        
+        <script src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
+                
+        <script src="{{ url_for('static',filename='vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+            
+        <script src="{{ url_for('static',filename='vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"> </script>
+
+        
+           <!-- Main File-->
+    <!--<script src="../static/js/front.js"></script>-->
+      <script src="{{ url_for('static',filename='js/front.js') }}"> </script>
+
+    </body>
+    
+</html>
