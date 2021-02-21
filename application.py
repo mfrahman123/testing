@@ -28,8 +28,8 @@ extract.get_important_data()
 
 #     return application
 application = Flask(__name__)
-Bootstrap(app)
-FontAwesome(app)
+Bootstrap(application)
+FontAwesome(application)
 application.config['SECRET_KEY'] = 'change this unsecure key'
 # application = create_app()
 
