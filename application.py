@@ -28,8 +28,7 @@ def create_app():
 
     return app
 
-app = application
-app = create_app()
+application = create_app()
 
 # we need to set a secret key attribute for secure forms
 
@@ -37,12 +36,12 @@ class QueryForm(FlaskForm):
     submit = SubmitField()
 
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
 # define the action for the top level route
-@app.route('/search', methods=['GET','POST'])
+@application.route('/search', methods=['GET','POST'])
 def search():
     form = QueryForm()
     htf_name = None
@@ -58,7 +57,7 @@ def search():
             return 'drug'
     return render_template('searchpage.html', form=form)
 
-@app.route('/tfprofile/<htf_name>', methods=['GET'])
+@application.route('/tfprofile/<htf_name>', methods=['GET'])
 def tfprofile(htf_name):
 
     symbs = extract.get_symbols()
@@ -92,15 +91,15 @@ def tfprofile(htf_name):
     else:
         return redirect(url_for('error', htf_name = None))
 
-@app.route('/error')
+@application.route('/error')
 def error():
     return render_template('error.html')
 
-@app.route('/download')
+@application.route('/download')
 def download():
     return render_template('download.html')
 
-@app.route('/geo',methods=['GET','POST'])
+@application.route('/geo',methods=['GET','POST'])
 def geo():
     if request.method == 'POST':
         f = request.files['file']
@@ -109,11 +108,11 @@ def geo():
         print(a)
     return render_template('GEO.html')
 
-@app.route('/drugprofile')
+@application.route('/drugprofile')
 def drugs():
     return render_template('drugprofile.html')
 
-# @app.route('/browse/drugs/<htf_name>')
+# @application.route('/browse/drugs/<htf_name>')
 # def drugs():
 
 #     return render_template('drugprofile.html')
