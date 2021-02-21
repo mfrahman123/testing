@@ -27,7 +27,10 @@ def create_app():
     app.config['SECRET_KEY'] = 'change this unsecure key'
 
     return app
+
+app = application
 app = create_app()
+
 # we need to set a secret key attribute for secure forms
 
 class QueryForm(FlaskForm):
