@@ -1,10 +1,10 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>
-Browse Genes | QMUL Transcription Factor Database
+GEO Results | QMUL Transcription Factor Database
 </title>
 <!-- Tab Icon -->
 <link rel="shortcut icon" href="https://img.bhs4.com/9D/E/9DEB6E06754E0FB036834E448B2F83111B6065FB_large.jpg" />
@@ -16,7 +16,7 @@ Browse Genes | QMUL Transcription Factor Database
     <meta name="robots" content="all,follow">
    
 
-   <!-- Bootstrap CSS-->
+       <!-- Bootstrap CSS-->
     <!--link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css"-->
       <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
 
@@ -30,6 +30,10 @@ Browse Genes | QMUL Transcription Factor Database
 
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+    <!-- jQuery Circle-->
+    <!--link rel="stylesheet" href="static/css/grasp_mobile_progress_circle-1.0.0.min.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
 
     <!-- Custom Scrollbar-->
     <!--link rel="stylesheet" href="static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"-->
@@ -63,19 +67,19 @@ Browse Genes | QMUL Transcription Factor Database
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- Small Brand information, appears on minimized sidebar-->
-          <div class="sidenav-header-logo"><a class="brand-imager"> <img src="https://www.flaticon.com/premium-icon/icons/svg/1951/1951419.svg" ></a></div>
+          <div class="sidenav-header-logo"><img src="https://www.flaticon.com/premium-icon/icons/svg/1951/1951419.svg" ></a></div>
         </div>
-      <!-- Sidebar Navigation Menus-->
-      <div class="main-menu">
-        <h5 class="sidenav-heading">Menu</h5>
-        <ul id="side-main-menu" class="side-menu list-unstyled">
-          <li><a href="{{ url_for('index',) }}"> <i class="fas fa-hospital"></i>Home                             </a></li>
-          <!-- <li> <i class="fas fa-dna"></i>Browse Transcription Factors                             </a></li> -->
-          <li><a href="{{ url_for('drugs', htf_name = htf_name) }}"> <i class="fas fa-pills"></i>Targeting Drugs                           </a></li>
-          <li><a href="{{ url_for('geo') }}"> <i class="fas fa-file-upload"></i>GEO Expression Data Search                            </a></li>
-            <li><a href="{{ url_for('index') }}"> <i class="fas fa-search"></i>Search</a></li>
-          <li><a href="{{ url_for('download') }}"> <i class="fas fa-download"></i>Download Data                             </a></li></ul>
-      </div>
+       <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+          <h5 class="sidenav-heading">Menu</h5>
+          <ul id="side-main-menu" class="side-menu list-unstyled">
+            <li><a href="{{ url_for('index',) }}"> <i class="fas fa-hospital"></i>Home                             </a></li>
+            <!-- <li> <i class="fas fa-dna"></i>Browse Transcription Factors                             </a></li> -->
+            <li><a href="{{ url_for('drugs', htf_name = htf_name) }}"> <i class="fas fa-pills"></i>Targeting Drugs                           </a></li>
+            <li><a href="{{ url_for('geo') }}"> <i class="fas fa-file-upload"></i>GEO Expression Data Search                            </a></li>
+              <li><a href="{{ url_for('search') }}"> <i class="fas fa-search"></i>Search</a></li>
+            <li><a href="{{ url_for('download') }}"> <i class="fas fa-download"></i>Download Data                             </a></li></ul>
+        </div>
       </div>
           </nav>
     <div class="page">
@@ -112,22 +116,33 @@ Browse Genes | QMUL Transcription Factor Database
         </nav>
       </header>
         
-    
-    <!--Page Contents-->
-    <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom: 0px">
-        <h1 class="display-4" style="font-size: 200%">List of Genes</h1>
+        <!--Page contents-->
+     <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom: 0px">
+        <h1 class="display-4" style="font-size: 200%">Based on your data...</h1>
         
-        <!--Area for list-->
+        <!--Area for results-->
+        <div class="container" style="background-color: #fff; padding: 5px 5px">
+            <h4 style="color: black; font-weight: 400">Summary</h4> 
+            <div class="row" style="color: black;align-content: space-between">
+                <div class="col"><p>No. Genes:</p> </div>
+                <div class="col"><p>No. Samples:</p></div>
+            </div>
+                <div class="row" style="text-align-last: center">
+                    <div class="container">
+            <p style="color: black">place heatmap here</p>
+                    </div>
+                </div>
+            <!--just for spacing-->
+         <div class="container" style="height: 5rem"></div>
+            
         <div class="container" style="background-color: #fff">
-        <p style="color: black">list of genes by name
-        in {{symbol}} format</p>
-		
-		{% for i in genes %}
-		<a href=" {{ i }}.html"> {{ i }} </a>
-		{% endfor %}
-		
-        </div>
-        
+            <h4 style="color: black; font-weight: 400">Relative Activity Demonstrations</h4> 
+            <div class="row">
+            <div class="container">
+                <p style="color: black">place graphs here</p>
+                </div> 
+            </div>
+         </div>
     </div>
         
         <!--Footer-->
@@ -145,23 +160,27 @@ Browse Genes | QMUL Transcription Factor Database
         </div>
       </footer>
     </div>
-    
-        <!-- JavaScript files-->
-        <script src="{{ url_for('static',filename='vendor/jquery.min.js') }}"> </script>
-        
-        <script src="{{ url_for('static',filename='vendor/bootstrap.bundle.min.js') }}"> </script>
-                
-        <script src="{{ url_for('static',filename='vendor/jquery.cookie.js') }}"> </script>
-            
-        <script src="{{ url_for('static',filename='vendor/jquery.mCustomScrollbar.concat.min.js') }}"> </script>
 
+         <!-- JavaScript files-->
+       <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"> </script>
+        
+       <script src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
+               
+       <script src="{{ url_for('static',filename='vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+           
+       <script src="{{ url_for('static',filename='vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"> </script>
+        
+        
          <!--DataTables-->
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
-        
+        <script type="text/javascript">
+          $(document).ready( function () {
+    $('#geo-results').DataTable();
+          } ); </script>
         
            <!-- Main File-->
     <!--<script src="../static/js/front.js"></script>-->
-      <script src="{{ url_for('static',filename='js/front.js') }}"> </script>
+      <script src="{{ url_for('static',filename='js/front.js') }}"> </script>     
     
     </body>
     </html>

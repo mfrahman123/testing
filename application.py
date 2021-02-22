@@ -27,11 +27,14 @@ extract.get_important_data()
 #     application.config['SECRET_KEY'] = 'change this unsecure key'
 
 #     return application
-application = Flask(__name__)
-Bootstrap(application)
-FontAwesome(application)
-application.config['SECRET_KEY'] = 'change this unsecure key'
-# application = create_app()
+def create_app():
+    application = Flask(__name__)
+    Bootstrap(application)
+    FontAwesome(application)
+    application.config['SECRET_KEY'] = 'change this unsecure key'
+    return application
+
+application = create_app()
 
 # we need to set a secret key attribute for secure forms
 

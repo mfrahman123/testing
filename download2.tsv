@@ -14077,8 +14077,8 @@ HGNC:14348	HTRA2	HtrA serine peptidase 2	2p13.1	O43464	ENSG00000115317
 HGNC:30406	HTRA3	HtrA serine peptidase 3	4p16.1	P83110	ENSG00000170801
 HGNC:26909	HTRA4	HtrA serine peptidase 4	8p11.22	P83105	ENSG00000169495
 HGNC:5303	HTRL	symbol withdrawn, see [HGNC:5289](/data/gene-symbol-report/#!/hgnc_id/HGNC:5289)			
-HGNC:4851	HTT	huntingtin	4p16.3	P42858	ENSG00000197386
 HGNC:5304	HTT	symbol withdrawn, see [HGNC:11050](/data/gene-symbol-report/#!/hgnc_id/HGNC:11050)			
+HGNC:4851	HTT	huntingtin	4p16.3	P42858	ENSG00000197386
 HGNC:37118	HTT-AS	HTT antisense RNA	4p16.3		ENSG00000251075
 HGNC:5305	HTX1	symbol withdrawn, see [HGNC:12874](/data/gene-symbol-report/#!/hgnc_id/HGNC:12874)			
 HGNC:5306	HTX2	symbol withdrawn, see [HGNC:18292](/data/gene-symbol-report/#!/hgnc_id/HGNC:18292)	reserved		
@@ -22648,8 +22648,8 @@ HGNC:7163	MMP17	matrix metallopeptidase 17	12q24.33	Q9ULZ9	ENSG00000198598
 HGNC:7164	MMP18	symbol withdrawn, see [HGNC:7165](/data/gene-symbol-report/#!/hgnc_id/HGNC:7165)			
 HGNC:7165	MMP19	matrix metallopeptidase 19	12q13.2	Q99542	ENSG00000123342
 HGNC:7167	MMP20	matrix metallopeptidase 20	11q22.2	O60882	ENSG00000137674
-HGNC:14357	MMP21	matrix metallopeptidase 21	10q26.2	Q8N119	ENSG00000154485
 HGNC:7168	MMP21	symbol withdrawn, see [HGNC:7170](/data/gene-symbol-report/#!/hgnc_id/HGNC:7170)			
+HGNC:14357	MMP21	matrix metallopeptidase 21	10q26.2	Q8N119	ENSG00000154485
 HGNC:7169	MMP22	symbol withdrawn, see [HGNC:7171](/data/gene-symbol-report/#!/hgnc_id/HGNC:7171)			
 HGNC:7170	MMP23A	matrix metallopeptidase 23A (pseudogene)	1p36.33		ENSG00000215914
 HGNC:7171	MMP23B	matrix metallopeptidase 23B	1p36.33	O75900	ENSG00000189409
@@ -24742,8 +24742,8 @@ HGNC:7755	NEP	symbol withdrawn, see [HGNC:2730](/data/gene-symbol-report/#!/hgnc
 HGNC:33184	NEPNP	nephrocan, pseudogene	6q22.1		ENSG00000218233
 HGNC:24496	NEPRO	nucleolus and neural progenitor protein	3q13.2	Q6NW34	ENSG00000163608
 HGNC:7756	NES	nestin	1q23.1	P48681	ENSG00000132688
-HGNC:14592	NET1	neuroepithelial cell transforming 1	10p15.1	Q7Z628	ENSG00000173848
 HGNC:7757	NET1	symbol withdrawn, see [HGNC:11051](/data/gene-symbol-report/#!/hgnc_id/HGNC:11051)			
+HGNC:14592	NET1	neuroepithelial cell transforming 1	10p15.1	Q7Z628	ENSG00000173848
 HGNC:13823	NETO1	neuropilin and tolloid like 1	18q22.3	Q8TDF5	ENSG00000166342
 HGNC:55333	NETO1-DT	NETO1 divergent transcript	18q22.3		
 HGNC:14644	NETO2	neuropilin and tolloid like 2	16q12.1	Q8NC67	ENSG00000171208
@@ -38514,8 +38514,8 @@ HGNC:14075	SGCZ	sarcoglycan zeta	8p22	Q96LD1	ENSG00000185053
 HGNC:25156	SGF29	SAGA complex associated factor 29	16p11.2	Q96ES7	ENSG00000176476
 HGNC:25412	SGIP1	SH3GL interacting endocytic adaptor 1	1p31.3	Q9BQI5	ENSG00000118473
 HGNC:10810	SGK1	serum/glucocorticoid regulated kinase 1	6q23.2	O00141	ENSG00000118515
-HGNC:10811	SGK2	symbol withdrawn, see [HGNC:10812](/data/gene-symbol-report/#!/hgnc_id/HGNC:10812)	20q13.2		
 HGNC:13900	SGK2	serum/glucocorticoid regulated kinase 2	20q13.12	Q9HBY8	ENSG00000101049
+HGNC:10811	SGK2	symbol withdrawn, see [HGNC:10812](/data/gene-symbol-report/#!/hgnc_id/HGNC:10812)	20q13.2		
 HGNC:10812	SGK3	serum/glucocorticoid regulated kinase family member 3	8q13.1	Q96BR1	ENSG00000104205
 HGNC:10813	SGLT1	symbol withdrawn, see [HGNC:11036](/data/gene-symbol-report/#!/hgnc_id/HGNC:11036)			
 HGNC:10814	SGLT2	symbol withdrawn, see [HGNC:11037](/data/gene-symbol-report/#!/hgnc_id/HGNC:11037)			

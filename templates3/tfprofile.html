@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+{{symbol}} | QMUL Transcription Factor Database
+</title>
+
+<!-- Tab Icon -->
+<link rel="shortcut icon" href="https://img.bhs4.com/9D/E/9DEB6E06754E0FB036834E448B2F83111B6065FB_large.jpg" />
+
+{{ fontawesome_html() }}
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+
+    <!-- Bootstrap CSS-->
+    <!--link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Font Awesome CSS-->
+    <!--link rel="stylesheet" href="static/vendor/font-awesome/css/font-awesome.min.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/font-awesome/css/font-awesome.min.css') }}">
+
+    <!-- Fontastic Custom icon font-->
+    <!--link rel="stylesheet" href="static/css/fontastic.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/fontastic.css') }}">
+
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+    <!-- Custom Scrollbar-->
+    <!--link rel="stylesheet" href="static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
+
+    <!-- theme stylesheet-->
+    <!--link rel="stylesheet" href="static/css/style.blue.css" id="theme-stylesheet"-->
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.blue.css') }}">
+
+      <!-- Search bar CSS -->
+      <!--<link rel="stylesheet" href="../static/css/simple-search.css" id="search-stylesheet">-->
+	 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/simple-search.css') }}">
+	  
+	  <!--Advanced Search-->
+     <!-- <link rel="stylesheet" href="../static/css/search-page.css">-->
+     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/search-page.css') }}">
+	  
+	  <!--Download Page-->
+     <!-- <link rel="stylesheet" href="../static/css/download.css">-->
+     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/download.css') }}">
+	  
+	   <!--DataTables-->
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+	  
+  </head>
+	
+  <body>
+    <!-- Side Navbar -->
+<nav class="side-navbar">
+<div class="side-navbar-wrapper">
+  <!-- Sidebar Header    -->
+  <div class="sidenav-header d-flex align-items-center justify-content-center">
+    <!-- Small Brand information, appears on minimized sidebar-->
+    <div class="sidenav-header-logo"><a class="brand-imager"> <img src="https://www.flaticon.com/premium-icon/icons/svg/1951/1951419.svg" ></a></div>
+  </div>
+  <!-- Sidebar Navigation Menus-->
+  <div class="main-menu">
+      <h5 class="sidenav-heading">Menu</h5>
+      <ul id="side-main-menu" class="side-menu list-unstyled">
+        <li><a href="{{ url_for('index',) }}"> <i class="fas fa-hospital"></i>Home                             </a></li>
+        <!-- <li> <i class="fas fa-dna"></i>Browse Transcription Factors                             </a></li> -->
+        <li><a href="{{ url_for('drugs', htf_name = htf_name) }}"> <i class="fas fa-pills"></i>Targeting Drugs                           </a></li>
+        <li><a href="{{ url_for('geo') }}"> <i class="fas fa-file-upload"></i>GEO Expression Data Search                            </a></li>
+          <li><a href="{{ url_for('index') }}"> <i class="fas fa-search"></i>Search</a></li>
+        <li><a href="{{ url_for('download') }}"> <i class="fas fa-download"></i>Download Data                             </a></li></ul>
+    </div>
+</div>
+</nav>
+
+<div class="page">
+<!-- navbar-->
+<header class="header">
+  <nav class="navbar">
+    <div class="container-fluid" style="align-content: space-between">
+      <div class="navbar-holder d-flex flex-row" style="align-content: space-between">
+         
+          <!-- menu button -->
+        <div class="navbar-header">
+            <a id="toggle-btn" href="#" class="menu-btn">
+                <i class="fas fa-sitemap"></i></a>
+             <a href="index.html" class="navbar-brand">
+         <div class="brand-text d-none d-md-inline-block"><span>TF </span><strong class="text-primary">DB</strong></div></a>
+          </div>
+          
+          <!--Searchbar-->
+      <div class="wrap">
+         <div class="search">
+             <form method="post">
+                  <input type="text" class="searchTerm" placeholder="Search...">
+             </form>
+            <button type="submit" class="searchButton">
+              <i class="fa fa-search"></i>
+           </button>
+         </div>
+      </div>
+          
+          
+          
+       </div>
+  </div>
+        
+      
+  </nav>
+</header>
+
+  <!--page contents-->
+<div class="container" style="padding-top: 20px">
+  <div class="row">
+      
+      <!--profile side-->
+  <div class="col-lg-4 col-md-5 xs-margin-30px-bottom" id="profile-info">
+          
+      <div class="padding-30px-all md-padding-25px-all sm-padding-20px-all text-center">
+          <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">{{symbol}}</h4>
+          <br>
+
+<!-- profile tidibts info-->
+      <div class="row">
+          <div class="col-md-5 col-5">
+              <i class="fas fa-project-diagram"></i>
+              <strong class="margin-5px-left text"> Family:</strong>
+          </div>
+          <div class="col-md-7 col-7">
+              <p>{{family}}</p>
+          </div>
+       </div>      
+          
+          <div class="row">
+              <div class="col-md-5 col-5">
+                  <i class="fas fa-id-card"></i>
+                  <strong class="margin-5px-left text">Ensembl ID:</strong>
+              </div>
+              <div class="col-md-7 col-7">
+                  <a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g={{ensembl}}"> <p>{{ensembl}}</p></a>
+              </div>
+          </div>
+          
+          <div class="row">
+              <div class="col-md-5 col-5">
+                  <i class="fas fa-id-card"></i>
+                  <strong class="margin-5px-left text">Uniprot ID:</strong>
+              </div>
+              <div class="col-md-7 col-7">
+                  <a href="https://www.uniprot.org/uniprot/{{uniprot}}"> <p>{{uniprot}}</p></a>
+              </div> 
+          </div>
+          
+          <div class="row">
+              <div class="col-md-5 col-5">
+                  <i class="fas fa-search-location"></i>
+                  <strong class="margin-5px-left text">Chromosomal Location:</strong>
+              </div>
+              <div class="col-md-7 col-7">
+                  <p>{{chr}}</p>
+              </div> 
+          </div>
+          
+          <div class="row">
+              <div class="col-md-5 col-5">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <strong class="margin-5px-left text">Subcellular Location:</strong>
+              </div>
+              <div class="col-md-7 col-7">
+                  <p>{{subcell}}</p>
+              </div> 
+          </div>
+          
+          
+          
+      </div>        
+  </div>
+      <br><br>
+           <!--name and description-->
+        <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px; padding-right: 10px; text-align: center">
+          <div class="team-single-text padding-25px-left sm-no-padding-left">
+              <h4 class="font-size38 sm-font-size32 xs-font-size30">{{full_name}}</h4>
+                  <p>{{func}}</p> <br>
+              <div class="info-section margin-40px-tb">
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+         <hr> 
+<section>
+  <!-- Information Tables -->
+      <br><br>
+<div class="container-fluid">
+  <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20">Genes  Regulated by {{symbol}}</h5>
+      <table id="gene-targets" class="table" width="100%" style="border: 1px solid #54545c">
+          <thead>
+              <tr class="table-primary">
+                  <th scope="col">Target No:</th>
+                  <th scope="col">Target Symbol</th>
+                  <th scope="col">Ensembl ID</th>
+              </tr>
+          </thead>
+              <tbody>
+              {% for i in targets %}
+              <tr>
+              <td>{{ i }}</td>
+              <td>{{ targets[i]['Name'] }}</td>
+              <td>{{ targets[i]['Ensembl'] }}</td>
+              </tr>
+              {% endfor %}
+
+              </tbody>
+          </table>
+      <thead>
+          <tr class="table-primary">
+              <th scope="col">Symbol</th>
+              <th scope="col">Ensembl ID</th>
+              <th scope="col">Full name</th>
+              <th scope="col">Regulation Type</th>
+          </tr>
+      </thead>
+      </table>
+  </div>
+</div>
+<br><hr>
+
+     <br><br>
+<div class="container-fluid">
+  <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20">Drugs which Regulate {{symbol}}</h5>
+      <table id="drug-regs" class="display" width="100%" style="border: 1px solid #54545c">
+      <thead>
+          <tr class="table-info">
+              <th scope="col">Name</th>
+              <th scope="col">DrugBank ID</th>
+              <th scope="col">Regulation Type</th>
+
+          </tr>
+      </thead>
+          <tbody>
+              <div class="table-content col-8">@drug-table-content</div>
+          </tbody>
+      </table>
+  </div>
+</div>
+  </section>
+
+<!--Footer-->
+  <footer class="main-footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <p>Team Amanda &copy; 2021- </p>
+      </div>
+      <div class="col-sm-6 text-right">
+        <p style="font-size: 11px">Based on a design by <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">Bootstrapious</a></p>
+        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions and it helps me to run Bootstrapious. Thank you for understanding :)-->
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+     <!-- JavaScript files-->
+     <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"> </script>
+        
+     <script src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
+             
+     <script src="{{ url_for('static',filename='vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+         
+     <script src="{{ url_for('static',filename='vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"> </script>
+
+	    <!--DataTables-->
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+	  
+	<script type="text/javascript">
+		  $(document).ready( function () {
+	    $('#gene-targets').DataTable();
+		  } ); </script>
+	      <script type="text/javascript">
+		  $(document).ready( function () {
+	    $('#drug-regs').DataTable();
+		  } ); </script>
+        
+        <!-- Main File-->
+    <!--<script src="../static/js/front.js"></script>-->
+      <script src="{{ url_for('static',filename='js/front.js') }}"> </script>
+    
+    </body>
+    </html>
