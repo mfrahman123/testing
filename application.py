@@ -28,14 +28,14 @@ extract.get_important_data()
 #     application.config['SECRET_KEY'] = 'change this unsecure key'
 
 #     return application
-def create_app():
+def create_application():
     application = Flask(__name__)
     Bootstrap(application)
     FontAwesome(application)
     application.config['SECRET_KEY'] = 'change this unsecure key'
     return application
 
-application = create_app()
+application = create_application()
 
 # we need to set a secret key attribute for secure forms
 
@@ -115,9 +115,9 @@ def geo():
         print(a)
     return render_template('GEO.html')
 
-@application.route('/drugprofile')
+@application.route(''/tfprofile/<htf_name>', methods=['GET']')
 def drugs():
-    return render_template('/drug/<drug_name>', methods=['GET'])
+    return render_template('drugprofile.html')
 
 # @application.route('/browse/drugs/<htf_name>')
 # def drugs():
