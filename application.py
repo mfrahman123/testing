@@ -8,6 +8,7 @@ import gzip
 from cs50 import SQL
 import csv
 from geo import open_gds
+import os
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -27,6 +28,8 @@ extract.get_important_data()
 #     application.config['SECRET_KEY'] = 'change this unsecure key'
 
 #     return application
+
+#for aws
 def create_application():
     application = Flask(__name__)
     Bootstrap(application)
