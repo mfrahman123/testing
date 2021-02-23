@@ -8,7 +8,6 @@ import gzip
 from cs50 import SQL
 import csv
 from geo import open_gds
-import os
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -115,7 +114,7 @@ def geo():
         print(a)
     return render_template('GEO.html')
 
-@application.route(''/tfprofile/<htf_name>', methods=['GET']')
+@application.route('/drugs/<drug_name>', methods=['GET']')
 def drugs():
     return render_template('drugprofile.html')
 
