@@ -27,17 +27,17 @@
                     <strong class="margin-5px-left text"> Chemical Formula:</strong>
                 </div>
                 <div class="col-md-5 col-5">
-                    <p>@drug-formula</p>
+                    <p>{{ IUPAC_NAME }}</p>
                 </div>
              </div>      
                 
                 <div class="row">
                     <div class="col-md-7 col-7">
                         <i class="fas fa-check-square"></i>
-                        <strong class="margin-5px-left text">Approval Status:</strong>
+                        <strong class="margin-5px-left text">Approval Date:</strong>
                     </div>
                     <div class="col-md-5 col-5">
-                        <p>@approval-stat</p>
+                        <p>@approval-date</p>
                     </div> 
                 </div>
                 <div class="row">
@@ -73,8 +73,9 @@
                 <thead>
                 <tr class="table-primary">
                     <th scope="col">Drug Name</th>
+                    <th scope="col">CHEMBL ID</th>
+                    <th scope="col">Action Type</th>
                     <th scope="col">Target Name</th>
-                    <th scope="col">Regulation Type</th>
                 </tr>
                 </thead>
                 <tbody>
