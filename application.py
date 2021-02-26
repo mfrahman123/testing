@@ -7,7 +7,26 @@ import target
 import gzip
 from cs50 import SQL
 import csv
-from geo import open_gds
+import os
+import shutil
+# R packages
+import rpy2
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+base = importr('base')
+BiocManager = importr("BiocManager")
+forcats = importr("forcats")
+stringr = importr("stringr")
+GEOquery = importr("GEOquery")
+limma = importr("limma")
+pheatmap = importr("pheatmap")
+dplyr = importr("dplyr")
+r = robjects.r
+
+r['source']('R-visuals.R')
+
+
+gseFUNC = robjects.globalenv['get_file_name']
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -110,9 +129,16 @@ def geo():
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename(f.filename))
-        a = open_gds(f.filename)
-        print(a)
+        heatmap_create = gseFUNC(secure_filename(f.filename))
+
+        return redirect(url_for('geo_results'))
+
     return render_template('GEO.html')
+
+@application.route('/geo_results')
+def geo_results():
+
+    return render_template('GEO-results.html')
 
 @application.route('/drugprofile')
 def drugs():
