@@ -13,13 +13,17 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("GEOquery")
 
 # Loading the required packages and dependencies
-#library("BiocManager")
-#library("forcats")
-#library("stringr")
-#library("GEOquery")
-#library("limma")
-#library("pheatmap")
-#library("dplyr")
+library("BiocManager")
+library("forcats")
+library("stringr")
+library("GEOquery")
+library("limma")
+library("pheatmap")
+library("dplyr")
+
+library(dyplr)
+library(GEOquery)
+library(pheatmap)
 
 get_file_name <- function(filename) {
   gse <- getGEO(filename=filename, destdir= "GDS Data Analysis")    # change my_id to the required dataset
