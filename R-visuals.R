@@ -13,7 +13,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("GEOquery")
 
 # Loading the required packages and dependencies
-#library("BiocManager")
+library("BiocManager")
 library("forcats")
 library("stringr")
 library("GEOquery")
