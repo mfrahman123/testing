@@ -1,19 +1,19 @@
 # Installing the required packages and dependencies
-#install.packages("BiocManager")
-#install.packages("forcats")
-#install.packages("stringr")
-#BiocManager::install("GEOquery")
-#BiocManager::install("limma")
-#BiocManager::install("pheatmap")
+install.packages("BiocManager")
+install.packages("forcats")
+install.packages("stringr")
+BiocManager::install("GEOquery")
+BiocManager::install("limma")
+BiocManager::install("pheatmap")
 
 # Install GEOquery
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-#  install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
 
 #BiocManager::install("GEOquery")
 
 # Loading the required packages and dependencies
-#library("BiocManager")
+library("BiocManager")
 library("forcats")
 library("stringr")
 library("GEOquery")
