@@ -16,12 +16,12 @@ from rpy2.robjects.packages import importr
 
 base = importr('base')
 #BiocManager = importr("BiocManager")
-forcats = importr("forcats")
-stringr = importr("stringr")
-GEOquery = importr("GEOquery")
-limma = importr("limma")
-pheatmap = importr("pheatmap")
-dplyr = importr(dplyr)
+#forcats = importr("forcats")
+#stringr = importr("stringr")
+#GEOquery = importr("GEOquery")
+#limma = importr("limma")
+#pheatmap = importr("pheatmap")
+#dplyr = importr(dplyr)
 
 r = robjects.r
 
