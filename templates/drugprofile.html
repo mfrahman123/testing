@@ -55,7 +55,7 @@
            <!--name and description-->
               <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px">
                 <div class="team-single-text padding-25px-left sm-no-padding-left" style="text-align: center">
-                    <h4 class="font-size38 sm-font-size32 xs-font-size30">@drug-name</h4>
+                    <h4 class="font-size38 sm-font-size32 xs-font-size30">{{ drug_name }}</h4>
                         <p> @drug-description</p> <br>
                     <div class="info-section margin-40px-tb">
                     </div>
@@ -72,10 +72,10 @@
                 <table id="drug-action" class="display" width="100%" style="border: 1px solid #54545c">
                 <thead>
                 <tr class="table-primary">
-                    <th scope="col">Drug Name</th>
                     <th scope="col">CHEMBL ID</th>
-                    <th scope="col">Action Type</th>
+                    <th scope="col">Drug Name</th>
                     <th scope="col">Target Name</th>
+                    <th scope="col">Action Type</th>
                 </tr>
                 </thead>
                 <tbody>
