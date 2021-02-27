@@ -15,7 +15,7 @@ import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 
 base = importr('base')
-BiocManager = importr("BiocManager")
+#BiocManager = importr("BiocManager")
 forcats = importr("forcats")
 stringr = importr("stringr")
 GEOquery = importr("GEOquery")
