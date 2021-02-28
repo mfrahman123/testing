@@ -22,7 +22,7 @@ Browse Transcription Factors | QMUL Transcription Factor Database
             <tbody>
                 <tr>
                 {% for i in tf.keys() %}
-                <td><a href="/tfprofile/{{ i }}"> {{ i }}  </a></td>
+                <td><a href="{{url_for('tfprofile', htf_name = i ) }}"> {{ i }}  </a></td>
                 <td>{{ tf[i] }}</td>
                 </tr>
                 {% endfor %}
