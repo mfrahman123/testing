@@ -1,98 +1,103 @@
 {% extends 'base.html' %}
 {% block title %}
 <title>
-@drug-name | QMUL Transcription Factor Database
+{{drug_name}} | QMUL Transcription Factor Database
 </title>
 {% endblock %}
 
 {% block content %}
 <!--page contents-->
-    <div class="container" style="padding-top: 20px">
+    <div class="container" style="padding-top: 20px; background-color: #FFF; margin-top: 15px">
         <div class="row">
-            
+
             <!--profile side-->
         <div class="col-lg-4 col-md-5 xs-margin-30px-bottom" id="profile-info">
-                
+
             <div class="padding-30px-all md-padding-25px-all sm-padding-20px-all text-center">
-                <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">@drug-name</h4>
+                <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">{{ drug_name }}</h4>
                 <br>
-                <!--drug structure photo-->
-                <img src="https://www.ebi.ac.uk/chembl/api/data/image/{{ CHEMBL_ID }}.svg" alt="drug-image">
+                 <!--drug structure photo-->
+                <img src="https://www.ebi.ac.uk/chembl/api/data/image/{{ chembl_id }}.svg" alt="drug-image">
                 <br>
-		    
+
       <!-- profile tidibts info-->
-            <div class="row">
-                <div class="col-md-7 col-7">
-                    <i class="fas fa-flask"></i>
-                    <strong class="margin-5px-left text"> Chemical Formula:</strong>
-                </div>
-                <div class="col-md-5 col-5">
-                    <p>@drug-formula</p>
-                </div>
-             </div>      
-                
+
                 <div class="row">
                     <div class="col-md-7 col-7">
                         <i class="fas fa-check-square"></i>
-                        <strong class="margin-5px-left text">Approval Status:</strong>
+                        <strong class="margin-5px-left text">Chembl ID:</strong>
                     </div>
                     <div class="col-md-5 col-5">
-                        <p>@approval-stat</p>
-                    </div> 
+                    <p><a href="https://www.ebi.ac.uk/chembl/compound_report_card/{{ chembl_id }}">{{ chembl_id }}</a></p>
+                    </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-7 col-7">
                         <i class="fas fa-crosshairs"></i>
-                        <strong class="margin-5px-left text">TF Targets:</strong>
+                        <strong class="margin-5px-left text">Approval Year:</strong>
                     </div>
                     <div class="col-md-5 col-5">
-                        <p>@drug-targets</p>
-                    </div> 
+                        <p>{{ first_approval }}</p>
+                    </div>
                 </div>
-            </div>        
+
+                <div class="row">
+                    <div class="col-md-7 col-7">
+                        <i class="fas fa-crosshairs"></i>
+                        <strong class="margin-5px-left text">Molecule Type:</strong>
+                    </div>
+                    <div class="col-md-5 col-5">
+                        <p>{{ molecule_type }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
             <br><br>
            <!--name and description-->
               <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px">
                 <div class="team-single-text padding-25px-left sm-no-padding-left" style="text-align: center">
-                    <h4 class="font-size38 sm-font-size32 xs-font-size30">@drug-name</h4>
-                        <p> @drug-description</p> <br>
+                    <h4 class="font-size38 sm-font-size32 xs-font-size30">{{ drug_name }}</h4>
+                        <p> {{ description }}</p> <br>
                     <div class="info-section margin-40px-tb">
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
         <hr>
         <!--Info Table-->
     <section>
+            <br><br>
         <div class="container-fluid">
             <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20" style="padding-top: 30px">Drug Action on Targets</h5>
                 <table id="drug-action" class="display" width="100%" style="border: 1px solid #54545c">
                 <thead>
                 <tr class="table-primary">
-                    <th scope="col">Drug Name</th>
+                    <th scope="col">Preferred Name</th>
                     <th scope="col">Target Name</th>
-                    <th scope="col">Regulation Type</th>
+                    <th scope="col">Action Type</th>
+                    <th scope="col">Compound Name</th>
                 </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                    <tbody>
+                    {% for i in list1.values() %}
+                    <tr>
+                    <td>{{ i["pref_name"] }}</td>
+                    <td>{{ i["drug_gene_target"] }}</td>
+                    <td>{{ i["action_type"] }}</td>
+                    <td>{{ i["compound_name"] }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
     </section>
-            <br><hr>
-        <!-- Sensitivity Info-->
-        <section>
-                    <h5 class="font-size24 sm-font-size22 xs-font-size20" style="padding: 15px">Sensitivity</h5>
 
-                    <div class="container-fluid" style="padding-bottom: 30px">
-                        <p>sensitivity graphs</p>
-                        
-                    </div>
-       
-        </section>
 
 {% endblock %}
+
+
+
