@@ -146,6 +146,10 @@ def geo_results():
 def drugs():
     return render_template('drugprofile.html')
 
+@application.route('/browse')
+def tfbrowse():
+    return render_template('browse.html')
+
 # @application.route('/browse/drugs/<htf_name>')
 # def drugs():
 
