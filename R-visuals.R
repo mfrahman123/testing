@@ -16,14 +16,12 @@
 library("BiocManager")
 library("forcats")
 library("stringr")
-library("GEOquery")
 library("limma")
-library("pheatmap")
-library("dplyr")
 
 library(dyplr)
 library(GEOquery)
 library(pheatmap)
+library(plsgenomics)
 
 get_file_name <- function(filename) {
   gse <- getGEO(filename=filename, destdir= "GDS Data Analysis")    # change my_id to the required dataset
