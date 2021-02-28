@@ -18,7 +18,7 @@ library("forcats")
 library("stringr")
 library("limma")
 
-library(dyplr)
+library(dpylr)
 library(GEOquery)
 library(pheatmap)
 library(plsgenomics)
