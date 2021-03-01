@@ -17,6 +17,8 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 
+from flask_sqlalchemy import SQLAlchemy
+
 
 r = robjects.r
 
@@ -44,7 +46,9 @@ def create_app():
     application = Flask(__name__)
     Bootstrap(application)
     FontAwesome(application)
-    application.config['SECRET_KEY'] = 'change this unsecure key'
+   # application.config['SECRET_KEY'] = 'change this unsecure key'
+    application.config['SQLALCHEMY_DATABASE_URI'] = 's3://chembl-db/chembl_28.db'
+
     return application
 
 
