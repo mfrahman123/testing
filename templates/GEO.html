@@ -12,14 +12,14 @@ GEO | QMUL Transcription Factor Database
      <p class="lead" style="padding-left: 50px; padding-right: 50px; font-size: 18px">Upload your expression data in GDS format and we will calculate the relative activity from your sample.</p>
         <div class="container" style="padding-left: 30px; padding-right: 30px">
 
-            <form enctype = "multipart/form-data" action = "{{ url_for('geo') }}" method = "POST" >
+            <form enctype = "multipart/form-data" action = "{{ url_for('geo_results') }}" method = "POST" >
                 <h6>Upload File: </h6>
                 <div style="padding-top: 20px">
                 <!--label for file choosing and hiding original button-->
                     <label for="upload" class="btn" style="font: Roboto; background-color: transparent; border-width: thin; border-color: #ffffff; border-style: solid; color: #fff; padding: 10px; align-self: center">Select File</label>
                         <input id="upload" type = "file" name = "file" onchange="javascript:updateList()" style=" visibility: hidden; width: 50px"/>
                 <!--upload button-->
-                 <input type = "submit" value = "Upload" action="/geo_results" style="border-radius:8px; font: Roboto; background-color: transparent; border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px"/>
+                 <input type = "submit" value = "Upload" style="border-radius:8px; font: Roboto; background-color: transparent; border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px"/>
                     <!--show selected file-->
                     <div class="container" style="margin-top: 30px">
                     <p style="font-size: .8em">Selected file:</p>
