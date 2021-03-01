@@ -82,10 +82,10 @@
                 </tr>
                 </thead>
                     <tbody>
-                    {% for i in list1.values() %}
+                    {% for i in drug_data %}
                     <tr>
                     <td>{{ i["pref_name"] }}</td>
-                    <td>{{ i["drug_gene_target"] }}</td>
+                    <td><a href="{{url_for('tfprofile', htf_name= i["Symbol"] )}}"> {{ i["Symbol"] }}  </a> </td>
                     <td>{{ i["action_type"] }}</td>
                     <td>{{ i["compound_name"] }}</td>
                     </tr>

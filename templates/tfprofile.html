@@ -7,12 +7,12 @@
 
 	    {% block content %}
         <!--page contents-->
-    <div class="container" style="padding-top: 20px">
+    <div class="container" style="padding-top: 20px; background-color: #FFF; margin-top: 15px">
         <div class="row">
-            
+
             <!--profile side-->
         <div class="col-lg-4 col-md-5 xs-margin-30px-bottom" id="profile-info">
-                
+
             <div class="padding-30px-all md-padding-25px-all sm-padding-20px-all text-center">
                 <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">{{symbol}}</h4>
                 <br>
@@ -26,18 +26,18 @@
                 <div class="col-md-7 col-7">
                     <p>{{family}}</p>
                 </div>
-             </div>      
-                
+             </div>
+
                 <div class="row">
                     <div class="col-md-5 col-5">
                         <i class="fas fa-id-card"></i>
                         <strong class="margin-5px-left text">Ensembl ID:</strong>
                     </div>
                     <div class="col-md-7 col-7">
-                        <a href="http://https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g={{ensembl}}"> <p>{{ensembl}}</p></a>
-                    </div> 
+                        <a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g={{ensembl}}"> <p>{{ensembl}}</p></a>
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-5 col-5">
                         <i class="fas fa-id-card"></i>
@@ -45,9 +45,9 @@
                     </div>
                     <div class="col-md-7 col-7">
                         <a href="https://www.uniprot.org/uniprot/{{uniprot}}"> <p>{{uniprot}}</p></a>
-                    </div> 
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-5 col-5">
                         <i class="fas fa-search-location"></i>
@@ -55,9 +55,9 @@
                     </div>
                     <div class="col-md-7 col-7">
                         <p>{{chr}}</p>
-                    </div> 
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-5 col-5">
                         <i class="fas fa-map-marker-alt"></i>
@@ -65,10 +65,10 @@
                     </div>
                     <div class="col-md-7 col-7">
                         <p>{{subcell}}</p>
-                    </div> 
+                    </div>
                 </div>
 
-            </div>        
+            </div>
         </div>
             <br><br>
                  <!--name and description-->
@@ -82,13 +82,13 @@
             </div>
         </div>
     </div>
-               <hr> 
+               <hr>
 <section>
         <!-- Information Tables -->
             <br><br>
     <div class="container-fluid">
         <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20">Genes  Regulated by {{symbol}}</h5>
-            <table id="gene-targets" class="display" width="100%" style="border: 1px solid #54545c">
+            <table id="gene-targets" class="table" width="100%" style="border: 1px solid #54545c">
                 <thead>
                     <tr class="table-primary">
                         <th scope="col">Target No:</th>
@@ -97,14 +97,14 @@
                     </tr>
                 </thead>
                     <tbody>
-                    {% for i in targets %}
+                     {% for i in targets %}
                     <tr>
                     <td>{{ i }}</td>
                     <td>{{ targets[i]['Name'] }}</td>
-                    <td>{{ targets[i]['Ensembl'] }}</td>
+                    <td><a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g={{targets[i]['Ensembl']}}"> {{targets[i]['Ensembl']}}</a></td>
                     </tr>
                     {% endfor %}
-      
+
                     </tbody>
                 </table>
         </div>
@@ -116,19 +116,27 @@
             <table id="drug-regs" class="display" width="100%" style="border: 1px solid #54545c">
             <thead>
                 <tr class="table-info">
+                    <th scope="col">CHEMBL ID</th>
                     <th scope="col">Name</th>
-                    <th scope="col">DrugBank ID</th>
-                    <th scope="col">Regulation Type</th>
 
                 </tr>
             </thead>
                 <tbody>
-                    <div class="table-content col-8">@drug-table-content</div>
+                    {% for i in drug.keys() %}
+                    <tr>
+                    {% if drug[i] != None %}
+                    <td><a href="https://www.ebi.ac.uk/chembl/compound_report_card/{{ i }}">{{ i }}</a></td>
+                    <td><a href ="{{ url_for('drug', drug_name = drug[i] ) }}"> {{ drug[i] }}</a></td>
+                    {% else %}
+                    <td>None</td>
+                    <td><a href ="{{ url_for('drug', drug_name = "None" ) }}"> {{ drug[i] }}</a></td>
+                    {% endif %}
+
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
         </section>
-
 {% endblock %}
-
