@@ -89,48 +89,13 @@ def tfprofile(htf_name):
     symbs = extract.get_symbols()
 
     if htf_name in symbs:
-        db = SQL("sqlite:///chembl_28.db")
+        db = SQL("sqlite:///transfacts.db")
 
-        user_inp = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Ensembl, Protein_name, Family, Chromosome, Uniprot_ID, Subcellular_location, Functions, drug_name, drug_concept_id FROM transcription_factors
-LEFT JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol
-LEFT JOIN HtfLocation ON chromosomal_location.Uniprot_ID = HtfLocation.Uniprot
-LEFT JOIN HtfGandD ON chromosomal_location.Symbol= HtfGandD.Symbol
-WHERE transcription_factors.Symbol = ?''', htf_name.upper())
+        htf_name = htf_name.upper()
 
-        u_i = db.execute('''SELECT DISTINCT target_dictionary.PREF_NAME, protein_classification.SHORT_NAME, protein_classification.PARENT_ID, protein_classification.PROTEIN_CLASS_DESC, protein_classification.DEFINITION FROM transcription_factors
-LEFT JOIN component_synonyms ON transcription_factors.Symbol = component_synonyms.COMPONENT_SYNONYM
-LEFT JOIN component_class ON component_synonyms.COMPONENT_ID = component_class.COMPONENT_ID
-LEFT JOIN protein_classification ON component_class.PROTEIN_CLASS_ID = protein_classification.PROTEIN_CLASS_ID
-LEFT JOIN target_components ON component_synonyms.COMPONENT_ID = target_components.COMPONENT_ID
-LEFT JOIN target_dictionary ON target_components.TID = target_dictionary.TID
-WHERE transcription_factors.Symbol = ?''', htf_name.upper())
+        user_inp = db.execute('''SELECT * FROM Htf_info WHERE Symbol = ?''', htf_name)
 
-        try:
-
-            dict1_drugs = {}
-            for n in range(len(user_inp)):
-                test_drug_name = user_inp[n]['drug_name']
-                test_drug_concept_id = user_inp[n]['drug_concept_id']
-                dict1_drugs[test_drug_concept_id] = test_drug_name
-        except:
-
-            dict1_drugs = {}
-            test_drug_name = "None"
-            test_drug_concept_id = "None"
-            dict1_drugs[test_drug_concept_id] = test_drug_name
-
-        for num in range(len(user_inp)):
-            ensembl = user_inp[num]['Ensembl']
-            chr = user_inp[num]['Chromosome']
-            full_name = user_inp[num]['Protein_name'].title()
-            uniprot = user_inp[num]['Uniprot_ID']
-            subcell = user_inp[num]['Subcellular_location']
-            func = user_inp[num]['Functions']
-            symbol = user_inp[num]['Symbol']
-            family = user_inp[num]['Family']
-            break
-
-        targets = target.get_htf_target_data(htf_name)
+        u_i = db.execute('''SELECT * FROM Protein_info WHERE Symbol = ?''', htf_name)
 
         return render_template('tfprofile.html', symbol=symbol, ensembl=ensembl, family=family, chr=chr,
                                full_name=full_name, uniprot=uniprot,
@@ -171,31 +136,9 @@ def geo_results():
 # define actions for drug profiles
 @application.route('/drugprofile/<drug_name>', methods=['GET'])
 def drug(drug_name):
-    db = SQL("sqlite:///chembl_28.db")
+    db = SQL("sqlite:///transfacts.db")
     try:
-
-        drug_data = db.execute('''SELECT DISTINCT molecule_dictionary.CHEMBL_ID, drug_name, action_type.ACTION_TYPE, target_dictionary.PREF_NAME, action_type.DESCRIPTION, HtfGandD.Symbol, MOLECULE_TYPE, FIRST_APPROVAL,  COMPOUND_NAME FROM HtfGandD  
-    LEFT JOIN molecule_dictionary ON  HtfGandD.drug_concept_id = molecule_dictionary.CHEMBL_ID
-    LEFT JOIN molecule_synonyms ON molecule_dictionary.MOLREGNO = molecule_synonyms.MOLREGNO
-    LEFT JOIN compound_structures ON molecule_synonyms.MOLREGNO = compound_structures.MOLREGNO
-    LEFT JOIN drug_mechanism ON compound_structures.MOLREGNO = drug_mechanism.MOLREGNO
-    LEFT JOIN action_type ON drug_mechanism.ACTION_TYPE = action_type.ACTION_TYPE
-    LEFT JOIN target_dictionary ON drug_mechanism.TID = target_dictionary.TID
-    LEFT JOIN compound_records ON drug_mechanism.MOLREGNO = compound_records.MOLREGNO
-    WHERE drug_name  = ?''', drug_name)
-
-
-    except:
-        drug_data = [{"pref_name": "None", "action_type": "None", "Symbol": "None", "compound_name": "None"}]
-
-    for num in range(len(drug_data)):
-        chembl_id = drug_data[num]['chembl_id']
-        drug_name = drug_data[num]['drug_name']
-        description = drug_data[num]['description']
-        molecule_type = drug_data[num]['molecule_type']
-        first_approval = drug_data[num]['first_approval']
-
-        break
+        drug_data = db.execute('''SELECT * FROM drug_info WHERE drug_name  = ?''', drug_name)
 
     return render_template('drugprofile.html', drug_data=drug_data, chembl_id=chembl_id, drug_name=drug_name,
                            description=description,
@@ -205,10 +148,9 @@ def drug(drug_name):
 # define actions for browse page
 @application.route('/browse')
 def tfbrowse():
-    db = SQL("s3://chembl-db/chembl_28.db")
+    db = SQL("sqlite:///transfacts.db")
 
-    tfs = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Protein_name FROM transcription_factors
-                        JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol''')
+    tfs = db.execute('''SELECT * FROM browse_info''')
 
     try:
 
@@ -228,5 +170,5 @@ def tfbrowse():
 
 # start the web server
 
-#application.run(debug=True)
+application.run(debug=True)
 
