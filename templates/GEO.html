@@ -17,9 +17,15 @@ GEO | QMUL Transcription Factor Database
                 <div style="padding-top: 20px">
                 <!--label for file choosing and hiding original button-->
                     <label for="upload" class="btn" style="font: Roboto; background-color: transparent; border-width: thin; border-color: #ffffff; border-style: solid; color: #fff; padding: 10px; align-self: center">Select File</label>
-                        <input id="upload" type = "file" name = "file" style=" visibility: hidden; width: 50px"/>
+                        <input id="upload" type = "file" name = "file" onchange="javascript:updateList()" style=" visibility: hidden; width: 50px"/>
                 <!--upload button-->
                  <input type = "submit" value = "Upload"  style="border-radius:8px; font: Roboto; background-color: transparent; border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px"/>
+                    <!--show selected file-->
+                    <div class="container" style="margin-top: 30px">
+                    <p style="font-size: .8em">Selected file:</p>
+                    <div id="fileList" style="display: inline"></div>
+                    </div>
+
                 </div>
             </form>
 

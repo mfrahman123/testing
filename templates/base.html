@@ -145,6 +145,17 @@
 
  <script src="{{ url_for('static',filename='vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"> </script>
 
+ <!--for showing selected file-->
+ <script>
+    updateList = function() {
+        var input = document.getElementById('upload');
+        var output = document.getElementById('fileList');
+        var children = "";
+        for (var i = 0; i < input.files.length; ++i) {
+            children += '<p>' + input.files.item(i).name + '</p>';
+        }
+        output.innerHTML = '<p>'+children+'</p>';
+}</script>
 
          <!--DataTables-->
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
