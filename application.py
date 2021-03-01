@@ -7,36 +7,18 @@ import target
 import gzip
 from cs50 import SQL
 import csv
-import os
-import shutil
-# R packages
-import rpy2
-import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr
-
-base = importr('base')
-#BiocManager = importr("BiocManager")
-#forcats = importr("forcats")
-#stringr = importr("stringr")
-#GEOquery = importr("GEOquery")
-#limma = importr("limma")
-#pheatmap = importr("pheatmap")
-#dplyr = importr(dplyr)
-
-r = robjects.r
-
-r['source']('R-visuals.R')
-
-
-gseFUNC = robjects.globalenv['get_file_name']
+from geo import open_gds
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 
+# $env:FLASK_APP = "application.py"
 
 extract.get_important_data()
+
+
 # import sql ---> Uncomment if tranfac.db not present
 
 
@@ -55,7 +37,9 @@ def create_app():
     application.config['SECRET_KEY'] = 'change this unsecure key'
     return application
 
+
 application = create_app()
+
 
 # we need to set a secret key attribute for secure forms
 
@@ -63,12 +47,14 @@ class QueryForm(FlaskForm):
     submit = SubmitField()
 
 
+# define action for home page
 @application.route('/')
 def index():
     return render_template('index.html')
 
-# define the action for the top level route
-@application.route('/search', methods=['GET','POST'])
+
+# define the action for search page
+@application.route('/search', methods=['GET', 'POST'])
 def search():
     form = QueryForm()
     htf_name = None
@@ -77,85 +63,153 @@ def search():
         htf_name = request.form.get('keywords')
         category_type = request.form.get('category')
         if category_type == 'tf':
-            return redirect(url_for('tfprofile', htf_name = htf_name))
+            return redirect(url_for('tfprofile', htf_name=htf_name))
         elif category_type == 'gene':
-            return 'gene'
+            return redirect(url_for('tfprofile', htf_name=htf_name))
         elif category_type == 'drug':
             return 'drug'
     return render_template('searchpage.html', form=form)
 
-@application.route('/tfprofile/<htf_name>', methods=['GET'])
-def tfprofile(htf_name):
 
+# define actions for tf profiles
+@application.route('/tfprofile/<htf_name>', methods=['GET', 'POST'])
+def tfprofile(htf_name):
     symbs = extract.get_symbols()
 
     if htf_name in symbs:
-        db = SQL("sqlite:///tranfac.db")
+        db = SQL("sqlite:///chembl_28.db")
 
-        user_inp = db.execute("SELECT * FROM HtfUniprot JOIN HtfLocation ON HtfUniprot.Uniprot = HtfLocation.Uniprot WHERE HtfUniprot.Symbol = ? ", htf_name)
+        user_inp = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Ensembl, Protein_name, Family, Chromosome, Uniprot_ID, Subcellular_location, Functions, drug_name, drug_concept_id FROM transcription_factors
+LEFT JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol
+LEFT JOIN HtfLocation ON chromosomal_location.Uniprot_ID = HtfLocation.Uniprot
+LEFT JOIN HtfGandD ON chromosomal_location.Symbol= HtfGandD.Symbol
+WHERE transcription_factors.Symbol = ?''', htf_name.upper())
+
+        u_i = db.execute('''SELECT DISTINCT target_dictionary.PREF_NAME, protein_classification.SHORT_NAME, protein_classification.PARENT_ID, protein_classification.PROTEIN_CLASS_DESC, protein_classification.DEFINITION FROM transcription_factors
+LEFT JOIN component_synonyms ON transcription_factors.Symbol = component_synonyms.COMPONENT_SYNONYM
+LEFT JOIN component_class ON component_synonyms.COMPONENT_ID = component_class.COMPONENT_ID
+LEFT JOIN protein_classification ON component_class.PROTEIN_CLASS_ID = protein_classification.PROTEIN_CLASS_ID
+LEFT JOIN target_components ON component_synonyms.COMPONENT_ID = target_components.COMPONENT_ID
+LEFT JOIN target_dictionary ON target_components.TID = target_dictionary.TID
+WHERE transcription_factors.Symbol = ?''', htf_name.upper())
+
+        try:
+
+            dict1_drugs = {}
+            for n in range(len(user_inp)):
+                test_drug_name = user_inp[n]['drug_name']
+                test_drug_concept_id = user_inp[n]['drug_concept_id']
+                dict1_drugs[test_drug_concept_id] = test_drug_name
+        except:
+
+            dict1_drugs = {}
+            test_drug_name = "None"
+            test_drug_concept_id = "None"
+            dict1_drugs[test_drug_concept_id] = test_drug_name
 
         for num in range(len(user_inp)):
             ensembl = user_inp[num]['Ensembl']
             chr = user_inp[num]['Chromosome']
             full_name = user_inp[num]['Protein_name'].title()
-            uniprot = user_inp[num]['Uniprot']
+            uniprot = user_inp[num]['Uniprot_ID']
             subcell = user_inp[num]['Subcellular_location']
             func = user_inp[num]['Functions']
             symbol = user_inp[num]['Symbol']
             family = user_inp[num]['Family']
             break
-        # symbol = data[htf_name]['Symbol']
-        # family = data[htf_name]['Family']
-        # chr = data[htf_name]['Chr_loc']
-        # full_name = data[htf_name]['Full_Name']
-        # uniprot = data[htf_name]['Uniprot']
-        # subcell = data[htf_name]['Subcell']
-        # func = data[htf_name]['Func']
+
         targets = target.get_htf_target_data(htf_name)
 
-        return render_template('tfprofile.html', symbol= symbol, ensembl=ensembl, family=family,chr=chr, full_name=full_name, uniprot=uniprot,
-        subcell=subcell, func=func ,targets=targets)
-    else:
-        return redirect(url_for('error', htf_name = None))
+        return render_template('tfprofile.html', symbol=symbol, ensembl=ensembl, family=family, chr=chr,
+                               full_name=full_name, uniprot=uniprot,
+                               subcell=subcell, func=func, targets=targets, drug=dict1_drugs)
 
+    else:
+        return redirect(url_for('error', htf_name=None))
+
+
+# define action for error page
 @application.route('/error')
 def error():
     return render_template('error.html')
 
+
+# define action for download page
 @application.route('/download')
 def download():
     return render_template('download.html')
 
-@application.route('/geo',methods=['GET','POST'])
+
+# define action for GEO upload page
+@application.route('/geo', methods=['GET', 'POST'])
 def geo():
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename(f.filename))
-        heatmap_create = gseFUNC(secure_filename(f.filename))
-
-        return redirect(url_for('geo_results'))
-
+        a = open_gds(f.filename)
+        print(a)
     return render_template('GEO.html')
 
-@application.route('/geo_results')
-def geo_results():
 
-    return render_template('GEO-results.html')
+# define actions for drug profiles
+@application.route('/drugprofile/<drug_name>', methods=['GET'])
+def drug(drug_name):
+    db = SQL("sqlite:///chembl_28.db")
+    try:
 
-@application.route('/drugprofile')
-def drugs():
-    return render_template('drugprofile.html')
+        drug_data = db.execute('''SELECT DISTINCT molecule_dictionary.CHEMBL_ID, drug_name, action_type.ACTION_TYPE, target_dictionary.PREF_NAME, action_type.DESCRIPTION, HtfGandD.Symbol, MOLECULE_TYPE, FIRST_APPROVAL,  COMPOUND_NAME FROM HtfGandD  
+    LEFT JOIN molecule_dictionary ON  HtfGandD.drug_concept_id = molecule_dictionary.CHEMBL_ID
+    LEFT JOIN molecule_synonyms ON molecule_dictionary.MOLREGNO = molecule_synonyms.MOLREGNO
+    LEFT JOIN compound_structures ON molecule_synonyms.MOLREGNO = compound_structures.MOLREGNO
+    LEFT JOIN drug_mechanism ON compound_structures.MOLREGNO = drug_mechanism.MOLREGNO
+    LEFT JOIN action_type ON drug_mechanism.ACTION_TYPE = action_type.ACTION_TYPE
+    LEFT JOIN target_dictionary ON drug_mechanism.TID = target_dictionary.TID
+    LEFT JOIN compound_records ON drug_mechanism.MOLREGNO = compound_records.MOLREGNO
+    WHERE drug_name  = ?''', drug_name)
 
+
+    except:
+        drug_data = [{"pref_name": "None", "action_type": "None", "Symbol": "None", "compound_name": "None"}]
+
+    for num in range(len(drug_data)):
+        chembl_id = drug_data[num]['chembl_id']
+        drug_name = drug_data[num]['drug_name']
+        description = drug_data[num]['description']
+        molecule_type = drug_data[num]['molecule_type']
+        first_approval = drug_data[num]['first_approval']
+
+        break
+
+    return render_template('drugprofile.html', drug_data=drug_data, chembl_id=chembl_id, drug_name=drug_name,
+                           description=description,
+                           molecule_type=molecule_type, first_approval=first_approval)
+
+
+# define actions for browse page
 @application.route('/browse')
 def tfbrowse():
-    return render_template('browse.html')
+    db = SQL("sqlite:///chembl_28.db")
 
-# @application.route('/browse/drugs/<htf_name>')
-# def drugs():
+    tfs = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Protein_name FROM transcription_factors
+                        JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol''')
 
-#     return render_template('drugprofile.html')
+    try:
 
+        dict1_tfs = {}
+        for i in tfs:
+            full_name = i['Protein_name']
+            symbol = i['Symbol']
+            dict1_tfs[symbol] = full_name
+    except:
+
+        dict1_tfs = {}
+        full_name = "None"
+        symbol = "None"
+        dict1_tfs[symbol] = full_name
+
+    return render_template('browse.html', tf=dict1_tfs)
 
 # start the web server
 
 # application.run(debug=True)
+
