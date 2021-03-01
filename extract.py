@@ -131,9 +131,9 @@ def get_important_data():
 
 def get_symbols():
 
-    db = SQL("sqlite:///tranfac.db") 
+    db = SQL("sqlite:///transfacts.db") 
 
-    symbol_data = db.execute(''' SELECT Symbol FROM HtfUniprot''')
+    symbol_data = db.execute(''' SELECT Symbol FROM Htf_info''')
     symbol_list = []
     for x in symbol_data:
         symbol_list.append(x['Symbol'])
