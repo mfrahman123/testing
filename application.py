@@ -160,12 +160,13 @@ def geo_results():
 
 
 # define actions for drug profiles
-@application.route('/drugprofile/<drug_name>', methods=['GET'])
+@application.route('/drugprofile/<drug_name>', methods=['GET', 'POST'])
 def drug(drug_name):
     db = SQL("sqlite:///transfacts.db")
     try:
 
         drug_data = db.execute('''SELECT * FROM drug_info WHERE drug_name  = ?''', drug_name)
+
 
     except:
         drug_data = [{"pref_name": "None", "action_type": "None", "Symbol": "None", "compound_name": "None"}]
@@ -209,5 +210,5 @@ def tfbrowse():
 
 # start the web server
 
-#application.run(debug=True)
+application.run(debug=True)
 
