@@ -151,6 +151,12 @@ def geo():
     return render_template('GEO.html')
 
 
+# define action for GEO results page
+@application.route('/geo_results')
+def geo_results():
+    return render_template('GEO-results.html')
+
+
 # define actions for drug profiles
 @application.route('/drugprofile/<drug_name>', methods=['GET'])
 def drug(drug_name):
@@ -211,5 +217,5 @@ def tfbrowse():
 
 # start the web server
 
-# application.run(debug=True)
+#application.run(debug=True)
 
