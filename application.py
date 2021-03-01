@@ -189,8 +189,7 @@ def drug(drug_name):
 def tfbrowse():
     db = SQL("sqlite:///transfacts.db")
 
-    tfs = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Protein_name FROM transcription_factors
-                        JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol''')
+    tfs = db.execute('''SELECT * FROM browse_info''')
 
     try:
 
@@ -210,5 +209,5 @@ def tfbrowse():
 
 # start the web server
 
-application.run(debug=True)
+#application.run(debug=True)
 
