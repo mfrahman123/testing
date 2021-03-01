@@ -5,6 +5,9 @@ import pandas as pd
 import extract
 import target
 import gzip
+import rpy2
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
 from cs50 import SQL
 import csv
 from geo import open_gds
@@ -13,6 +16,13 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
+
+
+r = robjects.r
+
+r['source']('R-visuals.R')
+gseFUNC = robjects.globalenv['get_file_name']
+
 
 # $env:FLASK_APP = "application.py"
 
@@ -141,17 +151,16 @@ def download():
 
 
 # define action for GEO upload page
-@application.route('/geo', methods=['GET', 'POST'])
+@application.route('/geo',methods=['GET','POST'])
 def geo():
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename(f.filename))
-        a = open_gds(f.filename)
-        print(a)
+        heatmap_create = gseFUNC(secure_filename(f.filename))
+        return redirect(url_for('geo_results'))
     return render_template('GEO.html')
 
-
-# define action for GEO results page
+#
 @application.route('/geo_results')
 def geo_results():
     return render_template('GEO-results.html')
