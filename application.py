@@ -96,6 +96,32 @@ def tfprofile(htf_name):
         user_inp = db.execute('''SELECT * FROM Htf_info WHERE Symbol = ?''', htf_name)
 
         u_i = db.execute('''SELECT * FROM Protein_info WHERE Symbol = ?''', htf_name)
+        try:
+
+            dict1_drugs = {}
+            for n in range(len(user_inp)):
+                test_drug_name = user_inp[n]['drug_name']
+                test_drug_concept_id = user_inp[n]['drug_concept_id']
+                dict1_drugs[test_drug_concept_id] = test_drug_name
+        except:
+
+            dict1_drugs = {}
+            test_drug_name = "None"
+            test_drug_concept_id = "None"
+            dict1_drugs[test_drug_concept_id] = test_drug_name
+
+        for num in range(len(user_inp)):
+            ensembl = user_inp[num]['Ensembl']
+            chr = user_inp[num]['Chromosome']
+            full_name = user_inp[num]['Protein_name'].title()
+            uniprot = user_inp[num]['Uniprot_ID']
+            subcell = user_inp[num]['Subcellular_location']
+            func = user_inp[num]['Functions']
+            symbol = user_inp[num]['Symbol']
+            family = user_inp[num]['Family']
+            break
+
+        targets = target.get_htf_target_data(htf_name)
 
         return render_template('tfprofile.html', symbol=symbol, ensembl=ensembl, family=family, chr=chr,
                                full_name=full_name, uniprot=uniprot,
@@ -138,7 +164,20 @@ def geo_results():
 def drug(drug_name):
     db = SQL("sqlite:///transfacts.db")
     try:
+
         drug_data = db.execute('''SELECT * FROM drug_info WHERE drug_name  = ?''', drug_name)
+
+    except:
+        drug_data = [{"pref_name": "None", "action_type": "None", "Symbol": "None", "compound_name": "None"}]
+
+    for num in range(len(drug_data)):
+        chembl_id = drug_data[num]['chembl_id']
+        drug_name = drug_data[num]['drug_name']
+        description = drug_data[num]['description']
+        molecule_type = drug_data[num]['molecule_type']
+        first_approval = drug_data[num]['first_approval']
+
+        break
 
     return render_template('drugprofile.html', drug_data=drug_data, chembl_id=chembl_id, drug_name=drug_name,
                            description=description,
@@ -150,7 +189,8 @@ def drug(drug_name):
 def tfbrowse():
     db = SQL("sqlite:///transfacts.db")
 
-    tfs = db.execute('''SELECT * FROM browse_info''')
+    tfs = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Protein_name FROM transcription_factors
+                        JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol''')
 
     try:
 
