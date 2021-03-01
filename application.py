@@ -203,7 +203,7 @@ def drug(drug_name):
 # define actions for browse page
 @application.route('/browse')
 def tfbrowse():
-    db = SQL("sqlite:///s3://chembl-db/chembl_28.db")
+    db = SQL("s3://chembl-db/chembl_28.db")
 
     tfs = db.execute('''SELECT DISTINCT transcription_factors.Symbol, Protein_name FROM transcription_factors
                         JOIN chromosomal_location ON transcription_factors.Symbol = chromosomal_location.Symbol''')
