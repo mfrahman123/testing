@@ -10,7 +10,6 @@ import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 from cs50 import SQL
 import csv
-from geo import open_gds
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
