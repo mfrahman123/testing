@@ -170,10 +170,10 @@ def geo_results():
     rownames = radt.row_names()
     return render_template('GEO-results.html',  colnames=colnames, rownames=rownames)
 
-# @application.route('/geo_vis')
-# def geo_vis():
-#
-#     return render_template('GEO-vis.html')
+@application.route('/geo_vis')
+def geo_vis():
+
+    return render_template('GEO-vis.html')
 
 
 

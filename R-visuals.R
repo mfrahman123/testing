@@ -92,12 +92,12 @@ relative_activity <- function() {
   TFAc <- TFAc[,-1]
   TFAc <- TFAc[-1,]
   TFAc
-  TFAc <- TFAc[ order(rowMeans(TFAc), decreasing = T), ]
+  #TFAc <- TFAc[ order(rowMeans(TFAc), decreasing = T), ] #doesn't work with datatables
   # Add a new column for the average relative activity
   TFAc <- cbind(TFAc, rowMeans(TFAc))
   # Rename column as average
   colnames(TFAc)[ncol(TFAc)] <- "AVERAGE"
-    write.csv(TFAc, "relative.csv")
+  write.csv(TFAc, "relative.csv")
 
 }
 

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}
 <title>
-Browse Transcription Factors | QMUL Transcription Factor Database
+Browse Our Data | QMUL Transcription Factor Database
 </title>
 {% endblock %}
 {% block content %}
         <!--Page contents-->
-     <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom: 0px">
-        <h1 class="display-4" style="font-size: 200%">List of Transcription Factors</h1>
+     <div class="container-fluid" style="padding-bottom:20px">
+        <h1 style="font-size: 2em; font-weight:300; text-align: center; color: #FFF; padding-top:20px">List of Transcription Factors</h1>
         
         <!--Area for lists-->
         <div class="container-fluid">
@@ -27,8 +27,10 @@ Browse Transcription Factors | QMUL Transcription Factor Database
                 </tr>
                 {% endfor %}
             </tbody>
+            </table>
         </div>
         </div>
+     </div>
 
 
 {% endblock %}

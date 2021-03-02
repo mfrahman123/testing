@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>
+GEO Results - Visualisations | QMUL Transcription Factor Database
+</title>
+{% endblock %}
+{% block content %}
+
+        <!--Page contents-->
+     <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom: 0px">
+        <div class="container-fluid">
+         <a href="{{ url_for('geo') }}" class="btn" style="float: left; border-radius:8px; font: Roboto; background-color: transparent;
+         border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px">
+                        Upload Another File
+                      </a>
+         <a href="/geo_results" class="btn" style="float: right; border-radius:8px; font: Roboto; background-color: transparent;
+         border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px">
+                        View Relative Activity Output
+                      </a>
+        <h1 class="display-4" style="font-size: 3em">Based on your data...</h1>
+         </div>
+        <!--Area for visualisations-->
+        <div class="container" style="background-color: #fff; padding: 5px 5px; margin-top:15px">
+            <h4 style="color: #031a6b; font-weight: 400; margin-top:15px; padding-bottom:15px">Heatmaps</h4>
+                <div class="row" style="text-align-last: center">
+                    <div class="container-fluid">
+                        <img src="{{ url_for('static',filename='visuals/pheatmap.jpeg') }}"
+                             alt="heatmap" style=" height:30em; width:auto ">
+                    </div>
+                </div>
+        </div>
+
+     </div>
+ {% endblock %}
+

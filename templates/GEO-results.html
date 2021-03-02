@@ -1,36 +1,58 @@
 {% extends 'base.html' %}
 {% block title %}
 <title>
-GEO Results | QMUL Transcription Factor Database
+GEO Relative Activity Results | QMUL Transcription Factor Database
 </title>
 {% endblock %}
 {% block content %}
         
         <!--Page contents-->
-     <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom: 0px">
-        <h1 class="display-4" style="font-size: 200%">Based on your data...</h1>
-        
-        <!--Area for results-->
-        <div class="container" style="background-color: #fff; padding: 5px 5px">
-            <h4 style="color: black; font-weight: 400">Summary</h4>
-                <div class="row" style="text-align-last: center">
-                    <div class="container">
-                        <img src="{{ url_for('static',filename='visuals/pheatmap.jpeg') }}"
-                             alt="heatmap" style=" height:150em; width:400em ">
-                    </div>
-                </div>
-            <!--just for spacing-->
-         <div class="container" style="height: 5rem"></div>
-            
-        <div class="container" style="background-color: #fff">
-            <h4 style="color: black; font-weight: 400">Relative Activity Demonstrations</h4> 
-            <div class="row">
-            <div class="container">
-                <p style="color: black">place graphs here</p>
-                </div> 
-            </div>
-         </div>
-    </div>
 
+     <div class="jumbotron jumbotron-fluid text-center bg-event text-light" style="margin-bottom: 0px">
+         <!--navigating GEO options-->
+         <div class="container-fluid">
+         <a href="{{ url_for('geo') }}" class="btn" style="float: left; border-radius:8px; font: Roboto; background-color: transparent;
+         border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px">
+                        Upload Another File
+                      </a>
+         <a href="{{ url_for('geo_vis') }}" class="btn" style="float: right; border-radius:8px; font: Roboto; background-color: transparent;
+         border-color: #ffffff; border-style: solid; border-width: thin; color: #fff; padding: 8px">
+                        View Heatmaps
+                      </a>
+        <h1 class="display-4" style="font-size: 3em">Based on your data...</h1>
+         </div>
+
+            <!-- container for RA results -->
+        <div class="container-fluid" style="margin-top:20px; padding: 10px 10px; margin-left: auto; margin-right:auto">
+
+            <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20" style="color: #FFF; font-weight:300">Relative Activity
+                <br> of Transcription Factors in your Sample</h5>
+            <table id="RA" class=" nowrap hover" width="100%" style="border: 1px solid #54545c">
+                <thead>
+                    <tr class="table-primary">
+
+                        <th scope="col">Transcription Factors:</th>
+                        {% for i in colnames %}
+                        <th scope="col">{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                    <tbody>
+                            {% for row in rownames %}
+                        <tr>
+
+                            {% for item in row %}
+                            <td>{{item}}</td>
+
+                            {% endfor %}
+                        </tr>
+
+                            {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+
+            </div>
+     </div>
  {% endblock %}
 

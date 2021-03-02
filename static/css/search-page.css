@@ -54,6 +54,6 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .bg-event{
-  min-height: 300px;
+  min-height: 40em;
   background-image: linear-gradient(90deg, #00c5ff 20%, #006bff 70%, #0900ff 100%);
 }

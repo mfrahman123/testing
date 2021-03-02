@@ -97,7 +97,7 @@ table {
   transition: width 0.3s linear;
   width: calc(100% - 200px);
   background-color: #F4F7FA;
-  min-height: 30vh;
+  min-height: 10vh;
   padding-bottom: 50px;
 }
 

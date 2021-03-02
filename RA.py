@@ -2,7 +2,7 @@
 import GEOparse
 import pandas as pd
 
-target_matrix = pd.read_csv('tf_matrix.tsv', sep='\t', index_col=0)
+target_matrix = pd.read_csv('tf_matrix.csv', sep=',', index_col=0)
 targets1 = list(target_matrix.index)
 
 
@@ -32,3 +32,8 @@ def connec_data(ge_data):
 
 
     return connec
+
+testge=ge_data('GDS859.soft.gz')
+connec = connec_data(testge)
+testge.to_csv('ge_data.csv')
+connec.to_csv('connec_data.csv')
