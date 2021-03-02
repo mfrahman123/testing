@@ -1,8 +1,10 @@
 import pandas as pd
 
+
+#create dataframe of relative activity data from R 
 df = pd.read_csv('relative.csv', index_col=0)
 
-
+#extract column names from relative activity data for html
 def column_names():
     column_names = []
 
@@ -11,7 +13,7 @@ def column_names():
 
     return column_names
 
-
+#extract row items for each row and produce list for html
 def row_names():
     row_names = []
 
