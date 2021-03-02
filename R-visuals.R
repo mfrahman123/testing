@@ -24,16 +24,13 @@ library(GEOquery)
 library(pheatmap)
 library(plsgenomics)
 
-
+#create a function which takes filename of uploaded file from user and create heatmap image 
 get_file_name <- function(filename) {
 
   gse <- getGEO(filename=filename, destdir=".")    # change my_id to the required dataset
   #gse <- getGEO(filename='GDS859.soft.gz', destdir=".")
   # check how many platforms used
-  length(gse)
-
-  # if more than one dataset is present, can analyse the other dataset by changing the number inside the [[...]]
-  # e.g. gds <- gds[[2]]
+  
 
   # Turning GDS object into an expression set object (using base 2 logarithms) and examining it
   eset <- GDS2eSet(gse, do.log2=TRUE)
@@ -62,17 +59,14 @@ get_file_name <- function(filename) {
 
   # Ensure rownames match the columns
   rownames(sampleInfo) <- colnames(corMatrix)
-
+  
+  #create jpeg image file for heatmap in correct directory 
   jpeg(filename= 'static/visuals/pheatmap.jpeg', units = "px", width = 4000, height = 2451, res = 300)
   pheatmap(corMatrix,annotation_col=sampleInfo)
   dev.off()
 }
 
-error_fix <- function() {
-  dev.off()
-}
-
-# for RA results
+# produce relative activity results and export as csv for input into html
 relative_activity <- function() {
 
   connec <- read.csv(file = 'connec_data.csv',header = FALSE)
