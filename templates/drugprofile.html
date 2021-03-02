@@ -9,7 +9,7 @@
 <!--page contents-->
     <div class="container" style="padding-top: 20px; background-color: #FFF; margin-top: 15px">
         <div class="row">
-
+        <div class="col">
             <!--profile side-->
         <div class="col-lg-4 col-md-5 xs-margin-30px-bottom" id="profile-info">
 
@@ -19,9 +19,23 @@
                  <!--drug structure photo-->
                 <img src="https://www.ebi.ac.uk/chembl/api/data/image/{{ chembl_id }}.svg" alt="drug-image">
                 <br>
-
-      <!-- profile tidibts info-->
-
+            </div>
+        </div>
+        </div>
+           <!--name and description-->
+            <div class="col">
+              <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px">
+                  <div class="container">
+                <div class="team-single-text padding-25px-left sm-no-padding-left" style="text-align: center">
+                    <h4 class="font-size38 sm-font-size32 xs-font-size30">{{ drug_name }}</h4>
+                        <p> {{ description }}</p> <br>
+                    <div class="info-section margin-40px-tb">
+                    </div>
+                </div>
+                  </div>
+              </div>
+                <br>
+                 <!-- profile tidibts info-->
                 <div class="row">
                     <div class="col-md-7 col-7">
                         <i class="fas fa-check-square"></i>
@@ -53,28 +67,18 @@
                 </div>
             </div>
         </div>
-            <br><br>
-           <!--name and description-->
-              <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px">
-                <div class="team-single-text padding-25px-left sm-no-padding-left" style="text-align: center">
-                    <h4 class="font-size38 sm-font-size32 xs-font-size30">{{ drug_name }}</h4>
-                        <p> {{ description }}</p> <br>
-                    <div class="info-section margin-40px-tb">
-                    </div>
-                </div>
             </div>
 
-        </div>
-    </div>
+
         <hr>
         <!--Info Table-->
     <section>
             <br><br>
         <div class="container-fluid">
             <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20" style="padding-top: 30px">Drug Action on Targets</h5>
-                <table id="drug-action" class="display" width="100%" style="border: 1px solid #54545c">
+                <table id="drug-action" class="hover" width="100%" style="border: 1px solid #54545c">
                 <thead>
-                <tr class="table-primary">
+                <tr class="table-info">
                     <th scope="col">Preferred Name</th>
                     <th scope="col">Target Name</th>
                     <th scope="col">Action Type</th>
@@ -84,10 +88,10 @@
                     <tbody>
                     {% for i in drug_data %}
                     <tr>
-                    <td>{{ i["pref_name"] }}</td>
-                    <td><a href="{{url_for('tfprofile', htf_name= i["Symbol"] )}}"> {{ i["Symbol"] }}  </a> </td>
-                    <td>{{ i["action_type"] }}</td>
-                    <td>{{ i["compound_name"] }}</td>
+                    <td>{{ i["PREF_NAME"] }}</td>
+                    <td><a href="{{url_for('tfprofile', htf_name= i['Symbol'] )}}"> {{ i["Symbol"] }}  </a> </td>
+                    <td>{{ i["ACTION_TYPE"] }}</td>
+                    <td>{{ i["COMPOUND_NAME"] }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -98,6 +102,3 @@
 
 
 {% endblock %}
-
-
-

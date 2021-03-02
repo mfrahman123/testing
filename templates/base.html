@@ -73,9 +73,9 @@
           <h5 class="sidenav-heading">Menu</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">
             <li><a href="{{ url_for('index') }}"> <i class="fas fa-hospital"></i>Home                             </a></li>
-             <li> <a href="{{ url_for('tfbrowse') }}"><i class="fas fa-dna"></i>Browse Our Data                </a></li>
+             <li><a href="/search"> <i class="fas fa-search"></i>Search</a></li>
+              <li> <a href="{{ url_for('tfbrowse') }}"><i class="fas fa-dna"></i>Browse Our Data                </a></li>
             <li><a href="{{ url_for('geo') }}"> <i class="fas fa-file-upload"></i>GEO Expression Data Search                            </a></li>
-              <li><a href="/search"> <i class="fas fa-search"></i>Search</a></li>
             <li><a href="{{ url_for('download') }}"> <i class="fas fa-download"></i>Download Data                             </a></li></ul>
         </div>
 
@@ -132,9 +132,8 @@
           </div>
         </div>
       </footer>
-        </div>
 {% endblock footer %}
-
+</div>
 {% block scripts %}
  <!-- JavaScript files-->
  <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"> </script>
@@ -180,10 +179,13 @@
               $('#drug-action').DataTable();
               } ); </script>
 
-      <script type="text/javascript">
+
+         <script type="text/javascript">
               $(document).ready( function () {
-        $('#geo-results').DataTable();
-              } ); </script>
+              $('#RA').DataTable( {
+              "scrollX": true
+              } );
+            } ); </script>
 
            <!-- Main File-->
     <!--<script src="../static/js/front.js"></script>-->

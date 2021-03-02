@@ -16,14 +16,15 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 
-
+import RA
+import radt
 
 r = robjects.r
-
 r['source']('R-visuals.R')
 gseFUNC = robjects.globalenv['get_file_name']
-
-
+raFUNC = robjects.globalenv['relative_activity']
+clearFUNC = robjects.globalenv['clear_env']
+filepath = ''
 # $env:FLASK_APP = "application.py"
 
 extract.get_important_data()
@@ -45,6 +46,7 @@ def create_app():
     Bootstrap(application)
     FontAwesome(application)
     application.config['SECRET_KEY'] = 'change this unsecure key'
+    application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
 
     return application
 
@@ -71,14 +73,13 @@ def search():
     htf_name = None
 
     if request.method == 'POST':
-        htf_name = request.form.get('keywords')
         category_type = request.form.get('category')
         if category_type == 'tf':
-            return redirect(url_for('tfprofile', htf_name=htf_name))
-        elif category_type == 'gene':
-            return redirect(url_for('tfprofile', htf_name=htf_name))
+            htf_name = request.form.get('keywords')
+            return redirect(url_for('tfprofile', htf_name=htf_name.upper()))
         elif category_type == 'drug':
-            return 'drug'
+            drug_name = request.form.get('keywords')
+            return redirect(url_for('drug', drug_name=drug_name.upper()))
     return render_template('searchpage.html', form=form)
 
 
@@ -145,17 +146,35 @@ def download():
 # define action for GEO upload page
 @application.route('/geo',methods=['GET','POST'])
 def geo():
+    clearFUNC()
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename(f.filename))
         heatmap_create = gseFUNC(secure_filename(f.filename))
+
+
+        a = RA.ge_data(secure_filename(f.filename))
+        a.to_csv("ge_data.csv")
+        b = RA.connec_data(a)
+        b.to_csv('connec_data.csv')
+        raFUNC()
+
+
         return redirect(url_for('geo_results'))
     return render_template('GEO.html')
 
 #
 @application.route('/geo_results')
 def geo_results():
-    return render_template('GEO-results.html')
+    colnames = radt.column_names()
+    rownames = radt.row_names()
+    return render_template('GEO-results.html',  colnames=colnames, rownames=rownames)
+
+# @application.route('/geo_vis')
+# def geo_vis():
+#
+#     return render_template('GEO-vis.html')
+
 
 
 # define actions for drug profiles
@@ -168,14 +187,14 @@ def drug(drug_name):
 
 
     except:
-        drug_data = [{"pref_name": "None", "action_type": "None", "Symbol": "None", "compound_name": "None"}]
+        drug_data = [{"drug_name": "None", "ACTION_TYPE": "None", "Symbol": "None", "COMPOUND_NAME": "None"}]
 
     for num in range(len(drug_data)):
-        chembl_id = drug_data[num]['chembl_id']
+        chembl_id = drug_data[num]['CHEMBL_ID']
         drug_name = drug_data[num]['drug_name']
-        description = drug_data[num]['description']
-        molecule_type = drug_data[num]['molecule_type']
-        first_approval = drug_data[num]['first_approval']
+        description = drug_data[num]['DESCRIPTIONS']
+        molecule_type = drug_data[num]['MOLECULE_TYPE']
+        first_approval = drug_data[num]['FIRST_APPROVAL']
 
         break
 
@@ -207,7 +226,14 @@ def tfbrowse():
 
     return render_template('browse.html', tf=dict1_tfs)
 
+# No caching at all for API endpoints.
+@application.after_request
+def add_header(response):
+    # response.cache_control.no_store = True
+    if 'Cache-Control' not in response.headers:
+        response.headers['Cache-Control'] = 'no-store'
+    return response
 # start the web server
 
-#application.run(debug=True)
+application.run(debug=True)
 
