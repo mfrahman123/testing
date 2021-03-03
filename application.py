@@ -19,7 +19,6 @@ gseFUNC = robjects.globalenv['get_file_name']
 #heatFUNC = robjects.globalenv['get_file_name2']
 raFUNC = robjects.globalenv['relative_activity']
 clearFUNC = robjects.globalenv['clear_env']
-filepath = ''
 # $env:FLASK_APP = "application.py"
 
 extract.get_important_data()

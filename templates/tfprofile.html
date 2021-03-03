@@ -11,7 +11,7 @@
         <div class="row">
 
             <!--profile side-->
-        <div class="col-lg-4 col-md-5 xs-margin-30px-bottom" id="profile-info">
+        <div class="col-lg-7 col-md-6 xs-margin-30px-bottom" id="profile-info">
 
             <div class="padding-30px-all md-padding-25px-all sm-padding-20px-all text-center">
                 <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">{{symbol}}</h4>
@@ -19,51 +19,51 @@
 
       <!-- profile tidibts info-->
             <div class="row">
-                <div class="col-md-5 col-5">
+                <div class="col-md-6 col-5">
                     <i class="fas fa-project-diagram"></i>
                     <strong class="margin-5px-left text"> Family:</strong>
                 </div>
-                <div class="col-md-7 col-7">
+                <div class="col-md-6 col-7">
                     <p>{{family}}</p>
                 </div>
              </div>
 
                 <div class="row">
-                    <div class="col-md-5 col-5">
+                    <div class="col-md-6 col-5">
                         <i class="fas fa-id-card"></i>
                         <strong class="margin-5px-left text">Ensembl ID:</strong>
                     </div>
-                    <div class="col-md-7 col-7">
+                    <div class="col-md-6 col-7">
                         <a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g={{ensembl}}"> <p>{{ensembl}}</p></a>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5 col-5">
+                    <div class="col-md-6 col-5">
                         <i class="fas fa-id-card"></i>
                         <strong class="margin-5px-left text">Uniprot ID:</strong>
                     </div>
-                    <div class="col-md-7 col-7">
+                    <div class="col-md-6 col-7">
                         <a href="https://www.uniprot.org/uniprot/{{uniprot}}"> <p>{{uniprot}}</p></a>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5 col-5">
+                    <div class="col-md-6 col-5">
                         <i class="fas fa-search-location"></i>
                         <strong class="margin-5px-left text">Chromosomal Location:</strong>
                     </div>
-                    <div class="col-md-7 col-7">
+                    <div class="col-md-6 col-7">
                         <p>{{chr}}</p>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5 col-5">
+                    <div class="col-md-6 col-5">
                         <i class="fas fa-map-marker-alt"></i>
                         <strong class="margin-5px-left text">Subcellular Location:</strong>
                     </div>
-                    <div class="col-md-7 col-7">
+                    <div class="col-md-6 col-7">
                         <p>{{subcell}}</p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
         </div>
             <br><br>
                  <!--name and description-->
-              <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px; padding-right: 10px; text-align: center">
+              <div class="col-lg-5 col-md-6" style="padding-top: 20px; padding-left: 50px; padding-right: 10px; text-align: center">
                 <div class="team-single-text padding-25px-left sm-no-padding-left">
                     <h4 class="font-size38 sm-font-size32 xs-font-size30">{{full_name}}</h4>
                         <p>{{func}}</p> <br>
@@ -110,7 +110,7 @@
         </div>
     </div>
             <br><hr>
-           <br><br>
+           <br>
     <div class="container-fluid">
         <div class="table"><h5 class="font-size24 sm-font-size22 xs-font-size20">Drugs which Regulate {{symbol}}</h5>
             <table id="drug-regs" class="hover" width="100%" style="border: 1px solid #54545c">
@@ -139,4 +139,5 @@
         </div>
     </div>
         </section>
+<br><br>
 {% endblock %}
