@@ -26,7 +26,7 @@ container_commands:
   b_install_pkgs:
     command:
       sudo R
-      install.packages(c('BiocManager', 'forcats', 'stringr', 'matrixStats'))
+      install.packages(c('BiocManager', 'forcats', 'stringr', 'matrixStats', 'gplots'))
       BiocManager::install(c('GEOquery','limma', 'pheatmap', 'plsgenomics')) #if this comes back with non-0 exit, reinstall libcurl
       q()
   c_copy_over:
