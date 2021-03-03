@@ -12,10 +12,7 @@
         <div class="col">
             <!--profile side-->
         <div class="col-lg-4 col-md-5 xs-margin-30px-bottom" id="profile-info">
-
             <div class="padding-30px-all md-padding-25px-all sm-padding-20px-all text-center">
-                <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">{{ drug_name }}</h4>
-                <br>
                  <!--drug structure photo-->
                 <img src="https://www.ebi.ac.uk/chembl/api/data/image/{{ chembl_id }}.svg" alt="drug-image">
                 <br>
@@ -24,7 +21,7 @@
         </div>
            <!--name and description-->
             <div class="col">
-              <div class="col-lg-8 col-md-7" style="padding-top: 20px; padding-left: 50px">
+              <div class="col-lg-12 col-md-9" style="padding-top: 20px">
                   <div class="container">
                 <div class="team-single-text padding-25px-left sm-no-padding-left" style="text-align: center">
                     <h4 class="font-size38 sm-font-size32 xs-font-size30">{{ drug_name }}</h4>
@@ -99,5 +96,5 @@
         </div>
     </section>
 
-
+<br><br>
 {% endblock %}

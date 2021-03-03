@@ -66,7 +66,7 @@ get_file_name <- function(filename) {
   # Ensure rownames match the columns
   rownames(sampleInfo) <- colnames(corMatrix)
 
-  png(filename= 'static/visuals/pheatmap.png', width = 4000, height = 2451, units='px', res = 500)
+  png(filename= 'static/visuals/pheatmap.png', width = 4000, height = 3100, units='px', res=300)
   pheatmap(corMatrix,annotation_col=sampleInfo)
   dev.off()
 
