@@ -97,7 +97,7 @@ table {
   transition: width 0.3s linear;
   width: calc(100% - 200px);
   background-color: #F4F7FA;
-  min-height: 10vh;
+  min-height: 100vh;
   padding-bottom: 50px;
 }
 
@@ -1172,7 +1172,7 @@ footer.main-footer {
 
 footer.main-footer p {
   font-size: 0.7em;
-  color: #777;
+  color: #6392bd;
   margin: 0;
 }
 

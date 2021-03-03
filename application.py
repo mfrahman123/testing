@@ -1,19 +1,13 @@
 from flask import Flask, render_template, url_for, redirect, request
 from flask_bootstrap import Bootstrap
 from flask_fontawesome import FontAwesome
-import pandas as pd
 import extract
 import target
-import gzip
-import rpy2
 import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr
 from cs50 import SQL
-import csv
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import SubmitField
 from werkzeug.utils import secure_filename
 
 import RA
@@ -143,7 +137,7 @@ def download():
     return render_template('download.html')
 
 
-# define action for GEO upload page
+# define actions for GEO pages
 @application.route('/geo',methods=['GET','POST'])
 def geo():
     clearFUNC()

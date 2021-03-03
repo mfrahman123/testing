@@ -1,9 +1,10 @@
 import pandas as pd
 
-df = pd.read_csv('relative.csv', index_col=0)
 
 
 def column_names():
+    df = pd.read_csv('../relative.csv', index_col=0)
+
     column_names = []
 
     for col in df.columns:
@@ -13,6 +14,8 @@ def column_names():
 
 
 def row_names():
+    df = pd.read_csv('../relative.csv', index_col=0)
+
     row_names = []
 
 

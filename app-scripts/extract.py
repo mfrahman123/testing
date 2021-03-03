@@ -15,7 +15,7 @@ def get_important_data():
         url = "http://bioinfo.life.hust.edu.cn/static/AnimalTFDB3/download/Homo_sapiens_TF"
         req = requests.get(url)
         url_content = req.content
-        tsv_file1 = open('download1.tsv', 'wb')
+        tsv_file1 = open('../download1.tsv', 'wb')
         tsv_file1.write(url_content)
         tsv_file1.close()
 
@@ -24,7 +24,7 @@ def get_important_data():
         new_url = 'https://www.genenames.org/cgi-bin/download/custom?col=gd_hgnc_id&col=gd_app_sym&col=gd_app_name&col=gd_pub_chrom_map&col=md_prot_id&col=md_ensembl_id&status=Approved&status=Entry%20Withdrawn&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit'
         req2 = requests.get(new_url)
         url_content2 = req2.content
-        tsv_file2 = open('download2.tsv', 'wb')
+        tsv_file2 = open('../download2.tsv', 'wb')
         tsv_file2.write(url_content2)
         tsv_file2.close()
 
