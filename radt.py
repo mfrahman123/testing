@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def column_names():
-    df = pd.read_csv('../relative.csv', index_col=0)
+    df = pd.read_csv('relative.csv', index_col=0)
 
     column_names = []
 
@@ -14,7 +14,7 @@ def column_names():
 
 
 def row_names():
-    df = pd.read_csv('../relative.csv', index_col=0)
+    df = pd.read_csv('relative.csv', index_col=0)
 
     row_names = []
 

@@ -27,7 +27,7 @@ library(plsgenomics)
 
 get_file_name <- function(filename) {
 
-  gse <- getGEO(filename=filename, destdir= "..")    # change my_id to the required dataset
+  gse <- getGEO(filename=filename, destdir= "")    # change my_id to the required dataset
   #gse <- getGEO(filename='GDS859.soft.gz', destdir=".")
   # check how many platforms used
   length(gse)
@@ -63,7 +63,7 @@ get_file_name <- function(filename) {
   # Ensure rownames match the columns
   rownames(sampleInfo) <- colnames(corMatrix)
 
-  jpeg(filename= '../static/visuals/pheatmap.jpeg', units = "px", width = 4000, height = 2451, res = 300)
+  jpeg(filename= 'static/visuals/pheatmap.jpeg', units = "px", width = 4000, height = 2451, res = 300)
   pheatmap(corMatrix,annotation_col=sampleInfo)
   dev.off()
 }
@@ -75,12 +75,12 @@ error_fix <- function() {
 # for RA results
 relative_activity <- function() {
 
-  connec <- read.csv(file = '../connec_data.csv', header = FALSE)
-  connec2 <- read.csv(file = '../connec_data.csv')
+  connec <- read.csv(file = 'connec_data.csv', header = FALSE)
+  connec2 <- read.csv(file = 'connec_data.csv')
   connec <- data.matrix(connec, rownames.force = NA)
   connec <- as.matrix(connec)
-  ge <- read.csv(file = '../ge_data.csv', header = FALSE)
-  ge2 <- read.csv(file = '../ge_data.csv')
+  ge <- read.csv(file = 'ge_data.csv', header = FALSE)
+  ge2 <- read.csv(file = 'ge_data.csv')
   ge <- data.matrix(ge, rownames.force = NA)
   ge <- as.matrix(ge)
 
@@ -96,7 +96,7 @@ relative_activity <- function() {
   TFAc <- cbind(TFAc, rowMeans(TFAc))
   # Rename column as average
   colnames(TFAc)[ncol(TFAc)] <- "AVERAGE"
-  write.csv(TFAc, "../relative.csv")
+  write.csv(TFAc, "relative.csv")
 
 }
 

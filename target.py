@@ -20,15 +20,15 @@ def get_htf_target_data(tf_gene_symbol):
         target_url = 'http://bioinfo.life.hust.edu.cn/hTFtarget/static/hTFtarget/tmp_files/targets/' + tf_gene_symbol + '.target.txt.gz' 
         r2 = requests.get(target_url, stream=True)
 
-        with open('../target.txt.gz', 'wb') as f:
+        with open('target.txt.gz', 'wb') as f:
             f.write(r2.content)
         #decompress gz file and convert to txt file
-        with gzip.open('../target.txt.gz', 'rb') as f_in:
-            with open('../target.txt', 'wb') as f_out:
+        with gzip.open('target.txt.gz', 'rb') as f_in:
+            with open('target.txt', 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
 
         #create pandas dataframe from txt file
-        target_df = pd.read_csv('../target.txt', sep ='\t')
+        target_df = pd.read_csv('target.txt', sep ='\t')
 
         #provide index name and appropriate column names
         target_df.index.name = 'ID'

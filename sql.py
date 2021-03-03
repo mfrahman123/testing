@@ -13,7 +13,7 @@ def get_important_data():
         url = "http://bioinfo.life.hust.edu.cn/static/AnimalTFDB3/download/Homo_sapiens_TF"
         req = requests.get(url)
         url_content = req.content
-        tsv_file1 = open('../download1.tsv', 'wb')
+        tsv_file1 = open('download1.tsv', 'wb')
         tsv_file1.write(url_content)
         tsv_file1.close()
 
@@ -22,7 +22,7 @@ def get_important_data():
         new_url = 'https://www.genenames.org/cgi-bin/download/custom?col=gd_hgnc_id&col=gd_app_sym&col=gd_app_name&col=gd_pub_chrom_map&col=md_prot_id&col=md_ensembl_id&status=Approved&status=Entry%20Withdrawn&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit'
         req2 = requests.get(new_url)
         url_content2 = req2.content
-        tsv_file2 = open('../download2.tsv', 'wb')
+        tsv_file2 = open('download2.tsv', 'wb')
         tsv_file2.write(url_content2)
         tsv_file2.close()
 
@@ -32,13 +32,13 @@ def get_important_data():
         return e
 
 #create pandas dataframe from tsv file
-htf_df = pd.read_csv('../download1.tsv', sep='\t')
+htf_df = pd.read_csv('download1.tsv', sep='\t')
 htf_df.rename(columns={'Entrez ID':'Entrez_ID'},inplace=True)
 #Remove unnecessary columns
 htf_df.drop(columns=['Species','Protein','Entrez_ID'],inplace=True)
 
 # create pandas dataframe from tsv file
-df1 = pd.read_csv('../download2.tsv', sep='\t')
+df1 = pd.read_csv('download2.tsv', sep='\t')
 del df1['HGNC ID']
 df2= df1.rename(columns = {'Approved symbol': 'Symbol', 'Approved name': 'Protein_name', 'Ensembl ID(supplied by Ensembl)': 'Ensembl'}, inplace = False)
 
@@ -62,7 +62,7 @@ db = SQL("sqlite:///tranfac.db")
 db.execute("CREATE TABLE HtfUniprot (Uniprot TEXT NON NULL, Protein_name TEXT NOT NULL, Symbol TEXT NOT NULL, Family TEXT NON NULL, Chromosome TEXT NOT NULL, Ensembl TEXT NOT NULL, PRIMARY KEY (Symbol))")
 
 # Open CSV file
-with open("../htfUniprot.tsv", "r") as file:
+with open("htfUniprot.tsv", "r") as file:
 
     # Create DictReader
     reader = csv.DictReader(file, delimiter="\t")
@@ -81,7 +81,7 @@ with open("../htfUniprot.tsv", "r") as file:
 
 
 #Retrieve rows and extract relevant data for subcellular location and function from uniprot database
-subcellular_df = pd.read_csv('../uniprot.txt', sep='\t')
+subcellular_df = pd.read_csv('uniprot.txt', sep='\t')
 subcellular_df = subcellular_df.fillna(0)
 subcellular_df.drop(columns=['Status', 'Entry name'],inplace=True)
 subcellular_df.rename(columns={'Gene names':'Symbol', 'Subcellular location [CC]':'Subcellular_location', 'Function [CC]':'Functions'}, inplace=True)
@@ -110,7 +110,7 @@ df4.to_csv("location.tsv", sep="\t", index=False)
 db.execute("CREATE TABLE HtfLocation (Uniprot TEXT, Subcellular_location TEXT, Functions TEXT)")
 
 # Open CSV file
-with open("../location.tsv", "r") as file1:
+with open("location.tsv", "r") as file1:
 
     # Create DictReader
     reader1 = csv.DictReader(file1, delimiter="\t")
