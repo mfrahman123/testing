@@ -2,7 +2,16 @@
 #### This configuration file runs a PowerShell script that installs R and necessary packages for
 #### the website. It should also create a different version of the nginx.conf file than standard.
 ####
-#### Author: @amandaholyn Updated: March 1, 2021
+#### Author: @amandaholyn Updated: March 2, 2021
+####
+####
+#### below may interfere with app deployment
+####files:
+####  "/etc/nginx/nginx.conf":
+####    mode: '000755'
+####    owner: root
+####    group: root
+####    source: https://github.com/acholyn/testing/blob/master/.ebextensions/nginx.conf
 ###################################################################################################
 
 files:
@@ -10,7 +19,8 @@ files:
     mode: '000755'
     owner: root
     group: root
-    source: https://github.com/acholyn/testing/blob/master/.ebextensions/nginx.conf
+    source: https://github.com/acholyn/testing/blob/master/.ebextensions/nginx.conf    
+    
     
 container_commands:
   a_install:
@@ -18,7 +28,6 @@ container_commands:
       sudo amazon-linux-extras install R4 --installroot=/usr/lib64/R
       sudo yum install libcurl-devel openssl-devel
       sudo yum install libxml2-devel libxslt-devel python-devel
-    leader_only: true
   b_install_pkgs:
     command:
       sudo R
