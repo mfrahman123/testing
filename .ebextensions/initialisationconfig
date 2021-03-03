@@ -4,14 +4,9 @@
 ####
 #### Author: @amandaholyn Updated: March 2, 2021
 ####
-####
-#### below may interfere with app deployment
-####files:
-####  "/etc/nginx/nginx.conf":
-####    mode: '000755'
-####    owner: root
-####    group: root
-####    source: https://github.com/acholyn/testing/blob/master/.ebextensions/nginx.conf
+#### presently this file does not work when deploying to EB but the commands can be run through
+####  CLI via ssh-ing into the instance  
+####    note: run after updating nginx.conf $ sudo service nginx restart 
 ###################################################################################################
 
 files:
@@ -34,4 +29,4 @@ container_commands:
       install.packages(c('BiocManager', 'forcats', 'stringr'))
       BiocManager::install(c('GEOquery','limma', 'pheatmap', 'plsgenomics')) #if this comes back with non-0 exit, reinstall libcurl
   c_copy_over:
-    command: sudo cp -a '/usr/lib64/R/library/. /usr/share/R/library'
+    command: sudo cp -a /usr/lib64/R/library/. /usr/share/R/library
