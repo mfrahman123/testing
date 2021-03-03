@@ -26,12 +26,12 @@ container_commands:
   a_install:
     command:
       sudo amazon-linux-extras install R4 --installroot=/usr/lib64/R
-      sudo yum install libcurl-devel openssl-devel
       sudo yum install libxml2-devel libxslt-devel python-devel
+      sudo yum install libcurl-devel openssl-devel
   b_install_pkgs:
     command:
       sudo R
       install.packages(c('BiocManager', 'forcats', 'stringr'))
-      BiocManager::install(c('GEOquery','limma', 'pheatmap', 'plsgenomics'))
+      BiocManager::install(c('GEOquery','limma', 'pheatmap', 'plsgenomics')) #if this comes back with non-0 exit, reinstall libcurl
   c_copy_over:
     command: sudo cp -a '/usr/lib64/R/library/. /usr/share/R/library'
