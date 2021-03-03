@@ -20,11 +20,16 @@ GEO Results - Visualisations | QMUL Transcription Factor Database
         <h1 class="display-4" style="font-size: 3em">Based on your data...</h1>
          </div>
         <!--Area for visualisations-->
-        <div class="container" style="background-color: #fff; padding: 5px 5px; margin-top:15px">
+        <div class="container-fluid" style="background-color: #fff; padding: 15px 5px; margin-top:15px; width:95%">
             <h4 style="color: #031a6b; font-weight: 400; margin-top:15px; padding-bottom:15px">Heatmaps</h4>
                 <div class="row" style="text-align-last: center">
-                    <div class="container-fluid">
-                        <img src="{{ url_for('static',filename='visuals/pheatmap.jpeg') }}"
+                    <div class="zoom-img">
+                        <img src="{{ url_for('static',filename='visuals/pheatmap.png') }}"
+                             alt="heatmap" style=" height:30em; width:auto ">
+                    </div>
+                    <br><hr><br>
+                    <div class="zoom-img" style="margin-top:20px">
+                        <img src="{{ url_for('static',filename='visuals/heatmap2.png') }}"
                              alt="heatmap" style=" height:30em; width:auto ">
                     </div>
                 </div>

@@ -16,6 +16,7 @@ import radt
 r = robjects.r
 r['source']('R-visuals.R')
 gseFUNC = robjects.globalenv['get_file_name']
+#heatFUNC = robjects.globalenv['get_file_name2']
 raFUNC = robjects.globalenv['relative_activity']
 clearFUNC = robjects.globalenv['clear_env']
 filepath = ''
@@ -145,7 +146,7 @@ def geo():
         f = request.files['file']
         f.save(secure_filename(f.filename))
         heatmap_create = gseFUNC(secure_filename(f.filename))
-
+        #heatmap2_create = heatFUNC(secure_filename(f.filename))
 
         a = RA.ge_data(secure_filename(f.filename))
         a.to_csv("ge_data.csv")

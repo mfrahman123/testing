@@ -54,6 +54,24 @@
   <!--DataTables-->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
 
+    <!--allow pan and zoom for heatmaps-->
+    <style>
+        .zoom-img {
+      width: 500px;
+      height: 500px;
+      overflow: scroll;
+      margin-right:5vw;
+    }
+
+    .zoom-img img {
+      width: 100%;
+      transition: width 0.25s ease;
+    }
+
+    .zoom-img img:hover {
+      width: 3000px;
+    }
+    </style>
 
 </head>
 {% endblock head %}
@@ -125,15 +143,15 @@
        <!--Footer-->
         <footer class="main-footer">
         <div class="container-fluid">
-            <div class="row" style="padding-left: 5vw; padding-right: 5vw; justify-content: space-between; font-size: .9em;">
+            <div class="row" style="padding-left: 7vw; padding-right: 7vw; justify-content: space-around; font-size: .9em;">
 <a href="/download">Download</a>    <a href="/">Home</a>        <a href="/search">Search</a>
             </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <p>Team Amanda &copy; 2021- </p>
+          <div class="row" style="margin-top:10px">
+            <div class="col-lg-9-md-7-sm-6">
+              <p style="font-size: 11px">Team Amanda: LahirHULK, MuhamMICROSOFT, AleJEKYLL & Ms HYDE-Lyn   &copy; 2021 </p>
             </div>
-            <div class="col-sm-6 text-right">
-              <p style="font-size: 11px">Based on a design by <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">Bootstrapious</a></p>
+            <div class="col-sm-6 text-right" >
+              <p style="font-size: 9px">Based on a design by <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">Bootstrapious</a></p>
               <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions and it helps me to run Bootstrapious. Thank you for understanding :)-->
             </div>
           </div>
