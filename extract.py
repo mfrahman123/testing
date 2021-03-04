@@ -10,6 +10,7 @@ import csv
 
 def get_important_data():
 #get data from url and store content
+''' Get data for Ensembl, Symbol, Family, full name and chromosomal location'''
     try:
         # Extraction of data for Ensembl, Symbol and Family
         url = "http://bioinfo.life.hust.edu.cn/static/AnimalTFDB3/download/Homo_sapiens_TF"
@@ -130,6 +131,8 @@ def get_important_data():
 
 
 def get_symbols():
+    
+    ''' get all current existing htf gene symbol data and make into a list'''
 
     db = SQL("sqlite:///tranfac.db") 
 
